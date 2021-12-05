@@ -9,7 +9,8 @@
     "watch": "tsc -w",
     "dev": "webpack --mode development --watch"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.2",
     "webpack": "^5.64.4",
