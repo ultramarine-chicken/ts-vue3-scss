@@ -1,21 +1,13 @@
 {
   "name": "scrollinggame",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "watch": "tsc -w"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ultramarine-chicken/scrollingGame.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ultramarine-chicken/scrollingGame/issues"
-  },
-  "homepage": "https://github.com/ultramarine-chicken/scrollingGame#readme",
   "dependencies": {
     "typescript": "^4.5.2"
   }
