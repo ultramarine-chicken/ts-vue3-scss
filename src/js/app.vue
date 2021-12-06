@@ -5,7 +5,7 @@
 <style scoped>
     .hello{
         color: blue;
-        font-size: 40px;
+        font-size: 100px;
     }
 </style>
 
@@ -16,7 +16,7 @@
         name: 'App',
         setup(){
             return{
-                helloText: 'Hello, World!'
+                helloText: 'Hell, World!'
             }
         }
     });

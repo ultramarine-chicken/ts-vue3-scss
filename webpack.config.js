@@ -1,23 +1,53 @@
 const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
     mode: 'development',
-    entry: './src/ts/script.ts',
+    devtool: 'inline-source-map',
+    entry: './src/js/index.ts',
     output: {
-        filename: 'script.js',
-        path: path.join(__dirname, 'dist')
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist/js'),
+        publicPath: ''
     },
     module: {
         rules: [
             {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.scss/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+            },
+            {
                 test: /\.ts$/,
-                use: 'ts-loader',
+                loader: 'ts-loader',
+                options: {
+                    //vueをtypescriptとして監視する
+                    appendTsSuffixTo: [/\.vue$/]
+                  }
             }
         ]
     },
+    cache: false,
     resolve: {
         extensions: [
-            '.ts', '.js'
+            '.ts'
         ]
-    }
+    },
+    plugins: [
+        new VueLoaderPlugin(),
+    ]
 };

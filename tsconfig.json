@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "module": "commonjs",
-    "outDir": "./dist/js",
-    "rootDir": "./src/ts",
+    "target": "ES5",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "ES2015",
+    "outDir": "./dist/",
+    "rootDir": "./src/",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules"
