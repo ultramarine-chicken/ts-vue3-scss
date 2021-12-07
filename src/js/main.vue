@@ -12,7 +12,6 @@
 
         @include mq-pc{
             width: 1000px;
-            font-size: $hoge;
         }
         @include mq-tablet{
             width: 98vw; 
