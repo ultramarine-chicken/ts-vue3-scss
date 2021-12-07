@@ -5,16 +5,17 @@
 </template>
 
 <style lang='scss' scoped>
-    @import '../style/global.scss';
+    //@import '../style/global.scss';
     .main-box{
         background-color: white;
-        color: red;
+        
 
         @include mq-pc{
             width: 1000px;
+            font-size: $hoge;
         }
         @include mq-tablet{
-            width: 98vw;
+            width: 98vw; 
         }
     }
 </style>

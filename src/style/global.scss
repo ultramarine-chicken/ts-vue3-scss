@@ -1,5 +1,6 @@
 $break-size: 830px;
 
+
 @mixin mq-pc{
     @media screen and (min-width: $break-size){
         @content;
