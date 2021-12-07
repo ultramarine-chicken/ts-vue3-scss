@@ -1,6 +1,14 @@
 @import './reset.css';
+@import './global.scss';
 
 body{
     background-color: #da9453
 }
 
+#main{
+    position: relative;
+    @include mq-pc{
+        left: 300px;
+        top: 100px;
+    }
+}

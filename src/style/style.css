@@ -2,3 +2,14 @@
 body {
   background-color: #da9453;
 }
+
+#main {
+  position: relative;
+}
+
+@media screen and (min-width: 830px) {
+  #main {
+    left: 300px;
+    top: 100px;
+  }
+}
