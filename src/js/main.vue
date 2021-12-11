@@ -1,11 +1,9 @@
 <template>
     <div class='main-box'>
-        {{ helloText }}
     </div>
 </template>
 
 <style lang='scss' scoped>
-    //@import '../style/global.scss';
     .main-box{
         background-color: white;
         

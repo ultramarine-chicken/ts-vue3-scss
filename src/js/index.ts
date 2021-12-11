@@ -2,6 +2,12 @@ import { createApp } from 'vue';
 import '../style/style.scss';
 
 import App from './main.vue';
-const app = createApp(App);
 
-app.mount('#main');
+function main(){
+    const app = createApp(App);
+
+    app.mount('#main');
+}
+
+
+window.onload = main;
