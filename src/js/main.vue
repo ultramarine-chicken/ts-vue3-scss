@@ -20,12 +20,20 @@
 <script lang='ts'>
     import { defineComponent } from 'vue';
 
+
     export default defineComponent({
         name: 'App',
-        setup(){
-            return{
-                helloText: 'Hell, World!'
+        data(){
+            return {
+                
             }
+        },
+        created(){
+            /*
+            const game = new PIXI.Application({
+                width: 300,
+                height: 400,
+            });*/
         }
     });
 </script>

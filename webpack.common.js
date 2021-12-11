@@ -50,9 +50,6 @@ module.exports = {
     },
     cache: true,
     resolve: {
-        extensions: [
-            '.ts'
-        ]
     },
     plugins: [
         new VueLoaderPlugin(),
