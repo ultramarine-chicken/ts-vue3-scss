@@ -2,8 +2,7 @@ const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
-    mode: 'development',
-    devtool: 'inline-source-map',
+
     entry: './src/js/index.ts',
     output: {
         filename: 'bundle.js',
