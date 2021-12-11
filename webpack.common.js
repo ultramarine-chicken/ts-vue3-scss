@@ -3,11 +3,11 @@ const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
 
-    entry: './src/js/index.ts',
+    entry: './src/index.ts',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: ''
+        publicPath: 'dist/'
     },
     module: {
         rules: [
@@ -48,7 +48,7 @@ module.exports = {
             }
         ]
     },
-    cache: false,
+    cache: true,
     resolve: {
         extensions: [
             '.ts'
