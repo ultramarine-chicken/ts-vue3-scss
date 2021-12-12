@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": false,
     "target": "ES5",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "module": "ES2015",
     "outDir": "./dist/",

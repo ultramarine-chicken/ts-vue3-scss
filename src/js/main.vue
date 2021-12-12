@@ -20,6 +20,7 @@
 <script lang='ts'>
     import { defineComponent } from 'vue';
 
+    import Game from './game/game';
 
     export default defineComponent({
         name: 'App',
@@ -29,11 +30,8 @@
             }
         },
         created(){
-            /*
-            const game = new PIXI.Application({
-                width: 300,
-                height: 400,
-            });*/
+            
+            const game: any = new Game();
         }
     });
 </script>
