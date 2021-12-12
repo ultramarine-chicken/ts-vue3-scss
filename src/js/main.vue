@@ -4,6 +4,28 @@
     </div>
 </template>
 
+<script lang='ts'>
+    import { defineComponent } from 'vue';
+
+    import Game from './game/game';
+
+    export default defineComponent({
+        name: 'App',
+        data(){
+            return {
+                
+            }
+        },
+        created(){
+
+        },
+        mounted(){
+            
+            const game: any = new Game(this.$el);
+        }
+    });
+</script>
+
 <style lang='scss' scoped>
     .main-box{
         background-color: white;
@@ -29,22 +51,3 @@
         
     }
 </style>
-
-<script lang='ts'>
-    import { defineComponent } from 'vue';
-
-    import Game from './game/game';
-
-    export default defineComponent({
-        name: 'App',
-        data(){
-            return {
-                
-            }
-        },
-        created(){
-            
-            const game: any = new Game();
-        }
-    });
-</script>

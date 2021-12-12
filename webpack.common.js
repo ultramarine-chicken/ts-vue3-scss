@@ -7,7 +7,8 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: 'dist/'
+        publicPath: 'dist/',
+        assetModuleFilename: 'images/[name][ext]'
     },
     module: {
         rules: [
@@ -45,6 +46,10 @@ module.exports = {
                     //vueをtypescriptとして監視する
                     appendTsSuffixTo: [/\.vue$/]
                   }
+            },
+            {
+                test: /\.(png|jpg|gif)$/i,
+                type: 'asset/resource'
             }
         ]
     },
