@@ -18,14 +18,15 @@ export default class Game extends Engin{
         console.log('setup');
 
         
-        const ctx = this.getContext();
-        ctx.drawImage(this.loader.get('aza'), 0, 0);
+        const aza = this.newSprite(this.getAsset('aza'));
+        aza.x = 50;
+        this.baseContainer.add(aza);
+
 
         this.ticker.add(this.function.bind(this));
         this.startLoop();
         
     }
     function(delta: number){
-        console.log(delta);
     }
 }

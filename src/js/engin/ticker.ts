@@ -4,8 +4,10 @@ export default class Ticker {
     FPS: number = 60;
     delta: number = 1;
     looping: boolean = false;
-    constructor(){
 
+    base: Function
+    constructor(base: Function = function(){}){
+        this.base = base;
     }
     start(){
         this.looping = true;
@@ -17,12 +19,17 @@ export default class Ticker {
     loop(timeStamp: number){
         const elapsedTime = timeStamp - this.prevTimeStamp;
         this.delta = elapsedTime/(1000/this.FPS);
+        this.prevTimeStamp = timeStamp;
+
+        this.base();
 
         for(let func of this.tickers) {
             func(this.delta);
         }
 
-        this.prevTimeStamp = timeStamp;
+
+
+        
 
         if(this.looping) requestAnimationFrame(this.loop.bind(this));
     }

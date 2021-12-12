@@ -17,10 +17,13 @@ export default class Screen {
     }
     getContext(opt: string){
         if(this.canvas){
-            this.canvas.getContext(opt);
+            return this.canvas.getContext(opt)! as CanvasRenderingContext2D;
         } else {
             throw Error('The canvas has not been set.');
         }
-        
+    }
+    clear(){
+        const cxt = this.getContext('2d');
+        cxt.clearRect(0, 0, this.canvas!.width, this.canvas!.height);
     }
 }
