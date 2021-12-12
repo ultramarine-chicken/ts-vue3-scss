@@ -13,10 +13,6 @@ export default class Game extends Engin{
         this.loadThen = this.setup.bind(this);
         this.startLoading();
 
-
-        const ctx = this.canvas!.getContext('2d')!;
-        ctx.fillRect(20, 20, 40, 50);
-
     }
     setup(){
         console.log('setup');
@@ -24,6 +20,12 @@ export default class Game extends Engin{
         
         const ctx = this.getContext();
         ctx.drawImage(this.loader.get('aza'), 0, 0);
+
+        this.ticker.add(this.function.bind(this));
+        this.startLoop();
         
+    }
+    function(delta: number){
+        console.log(delta);
     }
 }

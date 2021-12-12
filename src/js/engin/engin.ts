@@ -1,10 +1,12 @@
 import Screen from './screen';
 import Loader from './loader';
+import Ticker from './ticker';
 
 export default class Application {
     screen: Screen = new Screen();
     loader: Loader = new Loader();
     loadThen: Function = ()=>{};
+    ticker: Ticker = new Ticker();
     constructor(options: {
         el: HTMLCanvasElement,
         width: number,
@@ -28,5 +30,9 @@ export default class Application {
     }
     get canvas(){
         return this.screen.canvas;
+    }
+
+    startLoop(){
+        this.ticker.start();
     }
 };
