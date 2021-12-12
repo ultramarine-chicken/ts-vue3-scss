@@ -1,5 +1,6 @@
 <template>
     <div class='main-box'>
+        <canvas id="screen"></canvas>
         a
     </div>
 </template>
@@ -16,25 +17,22 @@
                 
             }
         },
-        created(){
-
-        },
         mounted(){
-            
-            const game: any = new Game(this.$el);
+            const screen = document.getElementById('screen')! as HTMLCanvasElement;
+            const game: any = new Game(screen);
+
+    
         }
     });
 </script>
 
 <style lang='scss' scoped>
+    $width-pc: 700px;
+    $width-tablet: 95vw;
+    $height-ratio-to-width: 5;
     .main-box{
         background-color: white;
-        
-        $width-pc: 700px;
-        $width-tablet: 95vw;
-        $height-ratio-to-width: 5;
-        
-
+    
         @mixin set-size($width, $ratio){
             width: $width;
             height: $width * $ratio;
@@ -48,6 +46,20 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+    }
+    canvas{
         
+        position: absolute;
+        left: 0;
+        top: 0;
+        @include mq-pc{
+            width: $width-pc;
+            height: $width-pc*$height-ratio-to-width;
+        }
+        @include mq-not-pc{
+            width: $width-tablet;
+            height: $width-tablet*$height-ratio-to-width; 
+        }
     }
 </style>

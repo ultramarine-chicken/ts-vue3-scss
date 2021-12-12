@@ -1,12 +1,11 @@
-import * as PIXI from 'pixi.js';
 import assetData from './assets.js';
+import Engin from '../engin/engin';
 
-export default class Game extends PIXI.Application{
-    constructor(el: HTMLDivElement){
+export default class Game extends Engin{
+    constructor(el: HTMLCanvasElement | any){
         super();
         
-
-        el.appendChild(this.view);
+        this.getScreen(el);
         
 
 
@@ -19,12 +18,16 @@ export default class Game extends PIXI.Application{
             image.src = src;
         }
 
+        this.screen!.width = 300;
+        this.screen!.height = 300;
+
+        const ctx = this.screen!.getContext('2d')!;
+        ctx.fillRect(25, 25, 400, 400);
 
     }
-    setup(loader: any, resources: any){
+    setup(){
+
         
-        const image = new PIXI.Sprite(resources['aza'].texture);
-        this.stage.addChild(image);
         
     }
 }
