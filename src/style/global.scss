@@ -1,14 +1,44 @@
-$break-size: 830px;
+$breakpoint-tablet: 1024px;
+$break-oint-mobile: 599px;
 
-
-@mixin mq-pc{
-    @media screen and (min-width: $break-size){
+@mixin screen-upper($breakpoint){
+    @media screen and (min-width: $breakpoint){
+        @content;
+    }
+}
+@mixin screen-lower($breakpoint){
+    @media screen and (max-width: $breakpoint){
+        @content;
+    }
+}
+@mixin screen-range($break-min, $break-max){
+    @media screen and (min-width: $break-min) and (max-width: $break-max){
         @content;
     }
 }
 
+@mixin mq-pc{
+    @include screen-upper($breakpoint-tablet){
+        @content;
+    }
+}
+@mixin mq-not-pc{
+    @include screen-lower($breakpoint-tablet){
+        @content;
+    }
+}
 @mixin mq-tablet{
-    @media screen and (max-width: $break-size){
+    @include screen-range($breakpoint-mobile, $breakpoint-tablet){
+        @content;
+    }
+}
+@mixin mq-mobile{
+    @include screen-lower($breakpoint-mobile){
+        @content;
+    }
+}
+@mixin mq-not-mobile{
+    @include screen-upper($breakpoint-mobile){
         @content;
     }
 }

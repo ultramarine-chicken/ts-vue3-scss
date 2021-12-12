@@ -1,15 +1,22 @@
 @import url(c:\Users\kesom\Desktop\github\scrolling-game\src\style\reset.css);
 body {
   background-color: #da9453;
+  font-family: sans-serif;
 }
 
 #main {
   position: relative;
 }
 
-@media screen and (min-width: 830px) {
+@media screen and (min-width: 1024px) {
   #main {
-    left: 300px;
+    left: 100px;
     top: 100px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #main {
+    margin-top: 10vh;
   }
 }

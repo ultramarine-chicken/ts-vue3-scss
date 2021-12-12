@@ -1,5 +1,6 @@
 <template>
     <div class='main-box'>
+        a
     </div>
 </template>
 
@@ -7,13 +8,25 @@
     .main-box{
         background-color: white;
         
+        $width-pc: 700px;
+        $width-tablet: 95vw;
+        $height-ratio-to-width: 5;
+        
+
+        @mixin set-size($width, $ratio){
+            width: $width;
+            height: $width * $ratio;
+        }
 
         @include mq-pc{
-            width: 1000px;
+            @include set-size($width-pc, $height-ratio-to-width);
         }
-        @include mq-tablet{
-            width: 98vw; 
+        @include mq-not-pc{
+            @include set-size($width-tablet, $height-ratio-to-width);
+            margin-left: auto;
+            margin-right: auto;
         }
+        
     }
 </style>
 

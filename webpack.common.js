@@ -48,7 +48,7 @@ module.exports = {
             }
         ]
     },
-    cache: true,
+    
     resolve: {
         extensions: ['.ts', '.js']
     },
