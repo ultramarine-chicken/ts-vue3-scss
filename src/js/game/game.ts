@@ -2,32 +2,28 @@ import assetData from './assets.js';
 import Engin from '../engin/engin';
 
 export default class Game extends Engin{
-    constructor(el: HTMLCanvasElement | any){
-        super();
+    constructor(options){
+        super(options);
         
-        this.getScreen(el);
-        
-
-
         const path = assetData.path;
         const assets = assetData.assets;
         for(let i=0, len=assets.length;i<len;i++){
-            //ルートからのパスをハードコードしないとエラーが出る　
-            const src = require('/src/js/game/' + path + assets[i].src);
-            const image = new Image();
-            image.src = src;
+            this.addImage(assets[i].id, path + assets[i].src);
         }
+        this.loadThen = this.setup.bind(this);
+        this.startLoading();
 
-        this.screen!.width = 300;
-        this.screen!.height = 300;
 
-        const ctx = this.screen!.getContext('2d')!;
-        ctx.fillRect(25, 25, 400, 400);
+        const ctx = this.canvas!.getContext('2d')!;
+        ctx.fillRect(20, 20, 40, 50);
 
     }
     setup(){
+        console.log('setup');
 
         
+        const ctx = this.getContext();
+        ctx.drawImage(this.loader.get('aza'), 0, 0);
         
     }
 }

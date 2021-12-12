@@ -14,14 +14,19 @@
         name: 'App',
         data(){
             return {
-                
+                width: 500,
+                heightRatioToWidth: 5
             }
         },
         mounted(){
             const screen = document.getElementById('screen')! as HTMLCanvasElement;
-            const game: any = new Game(screen);
+            const game = new Game({
+                el: screen,
+                width: this.width,
+                height: this.width*this.heightRatioToWidth
+            });
 
-    
+
         }
     });
 </script>
