@@ -2,7 +2,8 @@ import Screen from './screen';
 import Loader from './loader';
 import Ticker from './ticker';
 import Container from './container';
-import Sprite from './sprite';
+import Sprite from './actor';
+import Scene from './scene';
 
 export default class Application {
     screen: Screen = new Screen();
@@ -12,34 +13,15 @@ export default class Application {
     baseContainer: Container = new Container();
     width: number;
     height: number;
-    constructor(options: {
-        el: HTMLCanvasElement | undefined,
-        width: number,
-        height: number
-    } = {
-        el: undefined,
-        width: 300,
-        height: 400
-    }){
+    scenes: Map<string, Scene> = new Map();
+    currentScene: Scene | undefined = undefined;
+    constructor(options: { el: HTMLCanvasElement | undefined, width: number, height: number } 
+                = { el: undefined, width: 300, height: 400 }){
         if(options.el) this.screen.getCanvasElement(options.el);
         if(options.width && options.height) this.screen.setSize(options.width, options.height);
         this.width = options.width;
         this.height = options.height;
     }
-/*
-    startLoading(){
-        this.loader.loadAll()
-                    .then(this._loadThen.bind(this));
-    }*/
-    _loadThen(){
-        this.loadThen();
-    }
-    /*addImage(id: string, src: string){
-        this.loader.add(id, src);
-    }
-    getAsset(id: string){
-        return this.loader.get(id);
-    }*/
 
     setCanvas(el){
         this.screen.getCanvasElement(el)
@@ -51,9 +33,11 @@ export default class Application {
         return this.screen.canvas;
     }
 
-    baseTickerFunction(delta: number){
+    baseTickerFunction(canvas: HTMLCanvasElement = this.canvas!, delta: number){
+        if(this.currentScene) this.currentScene.update(delta);
+
         this.screen.clear();
-        this.baseContainer.update(this.screen.canvas!, delta);
+        this.baseContainer.render(canvas);
     }
 
     startLoop(){

@@ -1,8 +1,6 @@
 export default class Screen {
     canvas: HTMLCanvasElement | undefined = undefined;
-    constructor(){
 
-    }
     getCanvasElement(el: HTMLCanvasElement){
         this.canvas = el!;
     }
@@ -13,7 +11,6 @@ export default class Screen {
         } else {
             throw Error('The canvas has not been set.');
         }
-
     }
     getContext(opt: string){
         if(this.canvas){
@@ -23,12 +20,7 @@ export default class Screen {
         }
     }
     clear(){
-        /*
         const cxt = this.getContext('2d');
         cxt.clearRect(0, 0, this.canvas!.width, this.canvas!.height);
-        */
-       const cxt = this.getContext('2d');
-       cxt.fillStyle = 'rgba(255, 255, 255, 0.8)';
-       cxt.fillRect(0, 0, this.canvas!.width, this.canvas!.height);
     }
 }

@@ -1,26 +1,40 @@
+import Rectangle from './rectangle';
+
 export default class Container{
     children: Array<Container> = [];
-    position: {x: number, y: number} = {x: 0, y: 0};
+    rectangle: Rectangle = new Rectangle();
     constructor(){
     }
-    update(canvas: HTMLCanvasElement, delta: number){
+    render(canvas: HTMLCanvasElement){
         for(let i=0, len=this.children.length;i<len;i++){
-            this.children[i].update(canvas!, delta);
+            this.children[i].render(canvas!);
         }
     }
     add(obj: Container){
         this.children.push(obj);
     }
     set x(pos: number){
-        this.position.x = pos;
+        this.rectangle.x = pos;
     }
     get x(){
-        return this.position.x;
+        return this.rectangle.x;
     }
     set y(pos: number){
-        this.position.y = pos;
+        this.rectangle.y = pos;
     }
     get y(){
-        return this.position.y;
+        return this.rectangle.y;
+    }
+    set width(wid: number){
+        this.rectangle.width = wid;
+    }
+    get width(){
+        return this.rectangle.width;
+    }
+    set height(hei: number){
+        this.rectangle.height = hei;
+    }
+    get height(){
+        return this.rectangle.height;
     }
 }

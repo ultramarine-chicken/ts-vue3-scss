@@ -4,15 +4,14 @@ export default class Ticker {
     FPS: number = 60;
     maxFPS: number = 60;
     delta: number = 1;
-    looping: boolean = false;
+    looping: any = undefined;
 
     base: Function
     constructor(base: Function = function(){}){
         this.base = base;
     }
     start(){
-        this.looping = true;
-        requestAnimationFrame(this.loop.bind(this));
+        this.looping = requestAnimationFrame(this.loop.bind(this));
     }
     add(func: Function){
         this.tickers.add(func);
@@ -32,16 +31,16 @@ export default class Ticker {
         
 
 
-        this.base(this.delta);
+        this.base(undefined, this.delta);
 
         for(let func of this.tickers) {
             func(this.delta);
         }
 
 
-        if(this.looping) requestAnimationFrame(this.loop.bind(this));
+        requestAnimationFrame(this.loop.bind(this));
     }
     stop(){
-        this.looping = false;
+        cancelAnimationFrame(this.looping);
     }
 }
