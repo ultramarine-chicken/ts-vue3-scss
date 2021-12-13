@@ -21,15 +21,12 @@ export default class Ticker {
         this.delta = elapsedTime/(1000/this.FPS);
         this.prevTimeStamp = timeStamp;
 
-        this.base();
+        this.base(this.delta);
 
         for(let func of this.tickers) {
             func(this.delta);
         }
 
-
-
-        
 
         if(this.looping) requestAnimationFrame(this.loop.bind(this));
     }

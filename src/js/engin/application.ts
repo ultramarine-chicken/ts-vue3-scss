@@ -47,9 +47,9 @@ export default class Application {
         return this.screen.canvas;
     }
 
-    baseTickerFunction(){
+    baseTickerFunction(delta: number){
         this.screen.clear();
-        this.baseContainer.update(this.screen.canvas!);
+        this.baseContainer.update(this.screen.canvas!, delta);
     }
 
     startLoop(){

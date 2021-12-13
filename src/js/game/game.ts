@@ -4,12 +4,25 @@ import * as Engin from '../engin/engin';
 let Sprite = Engin.Sprite;
 
 class Ball extends Engin.Sprite{
+    vx: number = 0;
+    vy: number = 0;
     constructor(image: any){
         super(image);
-        this.actions = [this.move.bind(this)];
+        this.actions = [this.move.bind(this), this.detectHitToWall.bind(this)];
+
+        this.x = 100;
+        this.y = 100;
+        const angle = Math.random()*Math.PI*2;
+        const v = 2;
+        this.vx = Math.sin(angle)*v;
+        this.vy = Math.cos(angle)*v;
     }
-    move(){
-        this.x += 1;
+    move(delta: number){
+        this.x += this.vx * delta;
+        this.y += this.vy * delta;
+    }
+    detectHitToWall(){
+
     }
 }
 

@@ -3,9 +3,9 @@ export default class Container{
     position: {x: number, y: number} = {x: 0, y: 0};
     constructor(){
     }
-    update(canvas: HTMLCanvasElement){
+    update(canvas: HTMLCanvasElement, delta: number){
         for(let i=0, len=this.children.length;i<len;i++){
-            this.children[i].update(canvas!);
+            this.children[i].update(canvas!, delta);
         }
     }
     add(obj: Container){

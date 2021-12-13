@@ -6,13 +6,13 @@ export default class Sprite extends Container{
         super();
         this.image = image;
     }
-    update(canvas: HTMLCanvasElement): void {
+    update(canvas: HTMLCanvasElement, delta: number): void {
         for(let func of this.actions){
-            func();
+            func(delta);
         }
         
         for(let i=0, len=this.children.length;i<len;i++){
-            this.children[i].update(canvas);
+            this.children[i].update(canvas, delta);
         }
 
         this.render(canvas);
