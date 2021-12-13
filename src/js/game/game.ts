@@ -1,7 +1,19 @@
 import assetData from './assets.js';
-import Engin from '../engin/engin';
+import * as Engin from '../engin/engin';
 
-export default class Game extends Engin{
+let Sprite = Engin.Sprite;
+
+class Ball extends Engin.Sprite{
+    constructor(image: any){
+        super(image);
+        this.actions = [this.move.bind(this)];
+    }
+    move(){
+        this.x += 1;
+    }
+}
+
+export default class Game extends Engin.Application{
     constructor(options){
         super(options);
         
@@ -17,16 +29,14 @@ export default class Game extends Engin{
     setup(){
         console.log('setup');
 
-        
-        const aza = this.newSprite(this.getAsset('aza'));
-        aza.x = 50;
-        this.baseContainer.add(aza);
+        const ball = new Ball(this.getAsset('ball'));
+        this.baseContainer.add(ball);
 
 
-        this.ticker.add(this.function.bind(this));
+        this.ticker.add(this.mainLoop.bind(this));
         this.startLoop();
-        
     }
-    function(delta: number){
+    mainLoop(delta: number){
+        //this.aza.x += 1;
     }
 }

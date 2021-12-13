@@ -1,15 +1,21 @@
 import Container from './container';
 export default class Sprite extends Container{
     image: any = undefined;
-    constructor(image: any){
+    actions: Array<Function> = [];
+    constructor(image: any = undefined){
         super();
         this.image = image;
     }
     update(canvas: HTMLCanvasElement): void {
-        this.render(canvas);
+        for(let func of this.actions){
+            func();
+        }
+        
         for(let i=0, len=this.children.length;i<len;i++){
             this.children[i].update(canvas);
         }
+
+        this.render(canvas);
     }
     render(canvas){
         const cxt = canvas.getContext('2d');

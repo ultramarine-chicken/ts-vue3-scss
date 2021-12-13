@@ -26,7 +26,6 @@
                 height: this.width*this.heightRatioToWidth
             });
 
-
         }
     });
 </script>
