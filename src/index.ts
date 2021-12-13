@@ -5,9 +5,11 @@ import App from './js/main.vue';
 
 
 function main(){
+    window.scrollTo({
+        top: 0, left: 0
+    });
+
     const app = createApp(App);
-
-
     app.mount('#main');
 }
 

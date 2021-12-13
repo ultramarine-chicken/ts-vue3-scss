@@ -3,21 +3,22 @@ import * as Engin from '../engin/engin';
 
 //エイリアス
 const Sprite = Engin.Sprite;
+const Loader = Engin.Loader;
 
 class Ball extends Engin.Sprite{
     vx: number = 0;
     vy: number = 0;
     wall: {x: number, y: number, w: number, h: number};
     DOMInformation: any;
-    constructor(image: any, wallInfo: any, DOMInformation){
-        super(image);
+    constructor(wallInfo: any, DOMInformation){
+        super(Loader.get('ball'));
         this.actions = [this.detectHitToWall.bind(this),
                         this.move.bind(this)];
 
         this.x = 200;
         this.y = 200;
-        //const angle = Math.random()*Math.PI*2;
-        const angle = Math.PI*0.3;
+        const angle = Math.random()*Math.PI*2;
+        //const angle = Math.PI*0.3;
         const v = 5;
         this.vx = Math.cos(angle)*v;
         this.vy = Math.sin(angle)*v;
@@ -26,15 +27,12 @@ class Ball extends Engin.Sprite{
         this.DOMInformation = DOMInformation;
     }
     move(delta: number){
-        this.x += this.vx * delta;
-        this.y += this.vy * delta;
+        this.x = (this.x + this.vx * delta);
+        this.y = (this.y + this.vy * delta);
     }
     detectHitToWall(){
         if(this.x < 0 || this.x + this.width> 0 + this.wall.w){
             this.vx = -this.vx;
-        }
-        if(this.y < 0 || this.y + this.height > 0 + this.wall.h){
-            this.vy = -this.vy;
         }
 
         const docInfo = this.DOMInformation;
@@ -42,11 +40,25 @@ class Ball extends Engin.Sprite{
             top: (window.scrollY - docInfo.canvasY)*docInfo.screenRatioToCanvas(),
             bottom: (window.scrollY + docInfo.windowHeight - docInfo.canvasY)*docInfo.screenRatioToCanvas()
         };
-        console.log(windowWall.top, windowWall.bottom);
 
-        if(this.y < windowWall.top || this.y + this.height > windowWall.bottom) {
-            this.vy = -this.vy;
+        const collisionTop = (top) => {
+            if(this.y< top){
+                this.y = top + 1;
+                this.vy = -this.vy;
+            }
         }
+        const collisionBottom = (bottom) => {
+            if(this.y + this.height> bottom) {
+                this.y = bottom - this.height - 1;
+                this.vy = -this.vy;
+            }
+        }
+        collisionTop(0);
+        collisionBottom(this.wall.h);
+        collisionTop(windowWall.top);
+        collisionBottom(windowWall.bottom);
+
+
 
     }
 }
@@ -59,10 +71,10 @@ export default class Game extends Engin.Application{
         const path = assetData.path;
         const assets = assetData.assets;
         for(let i=0, len=assets.length;i<len;i++){
-            this.addImage(assets[i].id, path + assets[i].src);
+            Loader.add(assets[i].id, path + assets[i].src);
         }
-        this.loadThen = this.setup.bind(this);
-        this.startLoading();
+        Loader.loadAll()
+                .then(this.setup.bind(this));
 
         const canvasRect = options.el.getBoundingClientRect();
         this.DOMInformation = {
@@ -77,7 +89,7 @@ export default class Game extends Engin.Application{
     setup(){
         console.log('setup');
 
-        const ball = new Ball(this.getAsset('ball'), {x: 0, y: 0, w: this.width, h: this.height}, this.DOMInformation);
+        const ball = new Ball({x: 0, y: 0, w: this.width, h: this.height}, this.DOMInformation);
         this.baseContainer.add(ball);
 
 

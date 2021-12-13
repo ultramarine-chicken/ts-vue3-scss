@@ -26,20 +26,20 @@ export default class Application {
         this.width = options.width;
         this.height = options.height;
     }
-
+/*
     startLoading(){
         this.loader.loadAll()
                     .then(this._loadThen.bind(this));
-    }
+    }*/
     _loadThen(){
         this.loadThen();
     }
-    addImage(id: string, src: string){
+    /*addImage(id: string, src: string){
         this.loader.add(id, src);
     }
     getAsset(id: string){
         return this.loader.get(id);
-    }
+    }*/
 
     setCanvas(el){
         this.screen.getCanvasElement(el)
@@ -61,7 +61,7 @@ export default class Application {
     }
 
     createSpriteFromAsset(id: string){
-        return new Sprite(this.getAsset(id));
+        return new Sprite(Loader.get(id));
     }
     newSprite(image: any){
         return new Sprite(image);

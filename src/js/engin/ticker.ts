@@ -2,6 +2,7 @@ export default class Ticker {
     tickers: Set<Function> = new Set();
     prevTimeStamp: number = 0;
     FPS: number = 60;
+    maxFPS: number = 60;
     delta: number = 1;
     looping: boolean = false;
 
@@ -18,8 +19,18 @@ export default class Ticker {
     }
     loop(timeStamp: number){
         const elapsedTime = timeStamp - this.prevTimeStamp;
+
+        const accuracy = 0.9;
+        if(elapsedTime < 1/this.maxFPS * accuracy){
+            requestAnimationFrame(this.loop.bind(this));
+        }
+
+
         this.delta = elapsedTime/(1000/this.FPS);
         this.prevTimeStamp = timeStamp;
+
+        
+
 
         this.base(this.delta);
 

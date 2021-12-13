@@ -1,24 +1,24 @@
 export default class Loader{
-    promises: Array<Promise<any>> = [];
-    assets: Map<string, any> = new Map();
+    static promises: Array<Promise<any>> = [];
+    static assets: Map<string, any> = new Map();
     constructor(){
 
     }
-    add(id: string, src: string){
+    static add(id: string, src: string){
         const image = new Image();
         image.src = require('/src/js/game/' + src);
         const promise = new Promise((resolve)=>{
             image.addEventListener('load', ()=>{
-                this.assets.set(id, image);
+                Loader.assets.set(id, image);
                 resolve(image);
             });
         });
-        this.promises.push(promise);
+        Loader.promises.push(promise);
     }
-    loadAll(){
-        return Promise.all(this.promises).then((p) => this.assets);
+    static loadAll(){
+        return Promise.all(Loader.promises).then((p) => Loader.assets);
     }
-    get(id){
-        return this.assets.get(id);
+    static get(id){
+        return Loader.assets.get(id);
     }
 }

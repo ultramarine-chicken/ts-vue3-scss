@@ -24,7 +24,7 @@ export default class Sprite extends Container{
     render(canvas){
         const cxt = canvas.getContext('2d');
         if(this.image){
-            cxt.drawImage(this.image, this.x, this.y);
+            cxt.drawImage(this.image, this.x|0, this.y|0);
         }
     }
 }

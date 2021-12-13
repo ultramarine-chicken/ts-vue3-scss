@@ -37,7 +37,9 @@
     .main-box{
         background-color: white;
         position: relative;
-        border-radius: 10px;
+
+        overflow: hidden;
+        border-radius: 20px;
 
         @mixin set-size($width, $ratio){
             width: $width;
