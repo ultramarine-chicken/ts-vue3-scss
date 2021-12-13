@@ -10,6 +10,8 @@ export default class Application {
     loadThen: Function = ()=>{};
     ticker: Ticker = new Ticker(this.baseTickerFunction.bind(this));
     baseContainer: Container = new Container();
+    width: number;
+    height: number;
     constructor(options: {
         el: HTMLCanvasElement | undefined,
         width: number,
@@ -21,6 +23,8 @@ export default class Application {
     }){
         if(options.el) this.screen.getCanvasElement(options.el);
         if(options.width && options.height) this.screen.setSize(options.width, options.height);
+        this.width = options.width;
+        this.height = options.height;
     }
 
     startLoading(){

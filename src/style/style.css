@@ -2,10 +2,12 @@
 body {
   background-color: #da9453;
   font-family: sans-serif;
+  overflow-x: hidden;
 }
 
 #main {
   position: relative;
+  padding-bottom: 10vh;
 }
 
 @media screen and (min-width: 1024px) {

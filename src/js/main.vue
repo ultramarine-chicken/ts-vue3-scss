@@ -36,7 +36,9 @@
     $height-ratio-to-width: 5;
     .main-box{
         background-color: white;
-    
+        position: relative;
+        border-radius: 10px;
+
         @mixin set-size($width, $ratio){
             width: $width;
             height: $width * $ratio;
@@ -49,21 +51,22 @@
             @include set-size($width-tablet, $height-ratio-to-width);
             margin-left: auto;
             margin-right: auto;
+            
         }
+        canvas{
+            
+            position: absolute;
+            left: 0;
+            top: 0;
+            @include mq-pc{
+                width: $width-pc;
+                height: $width-pc*$height-ratio-to-width;
+            }
+            @include mq-not-pc{
+                width: $width-tablet;
+                height: $width-tablet*$height-ratio-to-width; 
+            }
+        }
+    }
 
-    }
-    canvas{
-        
-        position: absolute;
-        left: 0;
-        top: 0;
-        @include mq-pc{
-            width: $width-pc;
-            height: $width-pc*$height-ratio-to-width;
-        }
-        @include mq-not-pc{
-            width: $width-tablet;
-            height: $width-tablet*$height-ratio-to-width; 
-        }
-    }
 </style>
