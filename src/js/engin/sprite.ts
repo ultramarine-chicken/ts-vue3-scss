@@ -4,6 +4,11 @@ export default class Sprite {
     rectangle: Rectangle = new Rectangle;
     constructor(image: any = undefined, rect: any = undefined){
         this.image = image;
-        this.rectangle = rect;
+        if(rect){
+            this.rectangle = rect;
+        } else {
+            this.rectangle = new Rectangle(0, 0, image.width, image.height);
+        }
+        
     }
 }

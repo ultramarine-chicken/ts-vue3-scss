@@ -6,7 +6,9 @@ export default class Loader{
     }
     static add(id: string, src: string){
         const image = new Image();
+
         image.src = require('/src/js/game/' + src);
+
         const promise = new Promise((resolve)=>{
             image.addEventListener('load', ()=>{
                 Loader.assets.set(id, image);

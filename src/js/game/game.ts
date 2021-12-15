@@ -2,6 +2,8 @@ import assetData from './assets.js';
 import * as Engin from '../engin/engin';
 
 import Ball from './ball';
+import Wall from './wall';
+import WindowEdge from './windowEdge';
 import MainScene from './mainScene';
 
 //エイリアス
@@ -32,13 +34,33 @@ export default class Game extends Engin.Application{
     setup(){
         console.log('setup');
 
-        const ball = new Ball({x: 0, y: 0, w: this.width, h: this.height}, this.DOMInformation);
-        this.baseContainer.add(ball);
-
         const mainScene = new MainScene();
-        mainScene.add(ball);
         this.currentScene = mainScene;
 
+        const gameInfo = {
+            canvas: this.canvas,
+            width: this.width,
+            height: this.height,
+            canvasY: this.canvas!.getBoundingClientRect().top
+        }
+        const leftWall = new Wall(0, 0, 1, this.height);
+        const rightWall = new Wall(this.width, 0, 1, this.height);
+        const topWall = new Wall(0, 0, this.width, 1);
+        const bottomWall = new Wall(0, this.height, this.width, 1);
+        const windowTopWall = new WindowEdge(gameInfo, 'top');
+        const windowBottomWall = new WindowEdge(gameInfo, 'bottom');
+        mainScene.add(windowTopWall);
+        mainScene.add(windowBottomWall);
+        
+
+        const ball = new Ball();
+        ball.walls = new Set([leftWall, rightWall, topWall, bottomWall, windowTopWall, windowBottomWall]);
+        this.baseContainer.add(ball);
+        mainScene.add(ball);
+
+
+
+        
         this.startLoop();
     }
 }

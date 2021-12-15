@@ -1,6 +1,6 @@
 <template>
     <div class='main-box'>
-        <canvas id="screen"></canvas>
+        <canvas ref=screen id="screen"></canvas>
         a
     </div>
 </template>

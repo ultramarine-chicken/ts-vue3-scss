@@ -9,7 +9,7 @@ export default class Application {
     screen: Screen = new Screen();
     loader: Loader = new Loader();
     loadThen: Function = ()=>{};
-    ticker: Ticker = new Ticker(this.baseTickerFunction.bind(this));
+    ticker: Ticker = new Ticker(()=>{this.baseTickerFunction();});
     baseContainer: Container = new Container();
     width: number;
     height: number;
@@ -33,11 +33,15 @@ export default class Application {
         return this.screen.canvas;
     }
 
-    baseTickerFunction(canvas: HTMLCanvasElement = this.canvas!, delta: number){
-        if(this.currentScene) this.currentScene.update(delta);
+    baseTickerFunction(){
+        /*
+            １．currentSceneに属するActorのupdateを行う。
+            ２．baseContainerに属するContainer(Actor)のrenderを行う。
+        */
+        if(this.currentScene) this.currentScene.update(this.ticker.delta);
 
         this.screen.clear();
-        this.baseContainer.render(canvas);
+        this.baseContainer.render(this.canvas!);
     }
 
     startLoop(){
