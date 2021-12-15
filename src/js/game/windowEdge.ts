@@ -20,11 +20,11 @@ export default class WindowEdge extends Wall{
     }
     getTopEdge(){
         const watcher = this.watcher;
-        return (-watcher.canvasTop)*watcher.gameHeight/watcher.canvasHeight;
+        return (-watcher.canvasTop)*watcher.gameRatioToCanvasAboutSize;
     }
     getBottomEdge(){
         const watcher = this.watcher;
-        return (watcher.viewHeight - watcher.canvasTop)*watcher.gameHeight/watcher.canvasHeight;
+        return (watcher.viewHeight - watcher.canvasTop)*watcher.gameRatioToCanvasAboutSize;
     }
     act(delta: number): void {
         this.y = this.getEdge[this.type]();

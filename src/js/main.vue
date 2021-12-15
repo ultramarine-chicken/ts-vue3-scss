@@ -1,6 +1,6 @@
 <template>
     <div class='main-box'>
-        <canvas ref=screen id="screen"></canvas>
+        <canvas ref='screen' id="screen"></canvas>
         a
     </div>
 </template>
@@ -19,7 +19,7 @@
             }
         },
         mounted(){
-            const screen = document.getElementById('screen')! as HTMLCanvasElement;
+            const screen = this.$refs.screen as HTMLCanvasElement;
             const game = new Game({
                 el: screen,
                 width: this.width,

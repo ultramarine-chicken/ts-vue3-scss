@@ -15,7 +15,7 @@ export default class Game extends Engin.Application{
         
         const assets = assetData.assets;
         for(let i=0, len=assets.length;i<len;i++){
-            Engin.Loader.add(assets[i].id, assetData.path + assets[i].src);
+            this.addAsset(assets[i].id, assetData.path + assets[i].src);
         }
         Engin.Loader.loadAll()
                 .then(this.setup.bind(this));

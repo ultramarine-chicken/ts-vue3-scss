@@ -1,6 +1,7 @@
 export default class Screen {
     canvas: HTMLCanvasElement | undefined = undefined;
     resolution: number = window.devicePixelRatio || 1;
+    settingResolution: boolean = false;
 
     getCanvasElement(el: HTMLCanvasElement){
         this.canvas = el!;
@@ -28,11 +29,9 @@ export default class Screen {
     }
 
     setResolution(){
-        let ticking = false;
-        if(!ticking){
+        if(!this.settingResolution){
             requestAnimationFrame(()=>{
-                ticking = false;
-                const canvasRect = this.canvas!.getBoundingClientRect();
+                this.settingResolution = false;
                 const width = this.canvas!.width;
                 const height = this.canvas!.height;
 
@@ -42,7 +41,7 @@ export default class Screen {
                 const cxt = this.canvas!.getContext('2d')!;
                 cxt.scale(this.resolution, this.resolution);
             });
-            ticking = true;
+            this.settingResolution = true;
         }
     }
 }

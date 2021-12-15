@@ -6,9 +6,10 @@ export default class ClientWatcher{
     viewHeight: number = 0;
     gameHeight: number = 0;
     gameWidth: number;
+    gameRatioToCanvasAboutSize: number;
     ticking: boolean = false;
     constructor(canvas: HTMLCanvasElement, size: {width: number, height: number}){
-        
+
         document.addEventListener('scroll', this.getScrollingInfo.bind(this), {passive: true});
         window.addEventListener('resize', this.getResizingInfo.bind(this), {passive: true});
         
@@ -18,6 +19,7 @@ export default class ClientWatcher{
         this.getScrollingInfo();
         this.ticking = false;
         this.getResizingInfo();
+        this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvasHeight;
     }
     getScrollingInfo(){
         if(!this.ticking) {
@@ -36,6 +38,7 @@ export default class ClientWatcher{
                 this.ticking = false;
                 this.canvasHeight = this.canvas.getBoundingClientRect().height;
                 this.viewHeight = window.innerHeight;
+                this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvasHeight;
             });
             this.ticking = true;
         }

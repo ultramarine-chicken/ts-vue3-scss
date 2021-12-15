@@ -6,18 +6,29 @@ export default class Loader{
     constructor(){
 
     }
-    static add(id: string, src: string){
+    static addDynamically(id: string, src: string){
         const image = new Image();
-
         image.src = require('/src/js/game/' + src);
 
-        const promise = new Promise((resolve)=>{
+        const promise = new Promise((resolve)=>{ 
             image.addEventListener('load', ()=>{
                 Loader.assets.set(id, image);
                 resolve(image);
             });
         });
         Loader.promises.push(promise);
+    }
+    static addStatically(id: string, src: string){
+        const image = new Image();
+        image.src = src;
+
+        const promise = new Promise((resolve)=>{ 
+            image.addEventListener('load', ()=>{
+                Loader.assets.set(id, image);
+                resolve(image);
+            });
+        });
+        Loader.promises.push(promise);     
     }
     static loadAll(){
         return Promise.all(Loader.promises).then((p) => Loader.assets);

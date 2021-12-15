@@ -4,4 +4,4 @@ export default {
         {id: "aza", src: "aza.png"},
         {id: 'ball', src: 'ball.png'}
     ]
-}
+}; 

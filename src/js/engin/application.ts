@@ -15,6 +15,9 @@ export default class Application {
     height: number;
     scenes: Map<string, Scene> = new Map();
     currentScene: Scene | undefined = undefined;
+
+    loadingMode: string = 'dynamic';
+    loadingFunctions: {} = {dynamic: Loader.addDynamically, static: Loader.addStatically}
     
     constructor(options: { el: HTMLCanvasElement | undefined, width: number, height: number } 
                 = { el: undefined, width: 300, height: 400 }){
@@ -24,6 +27,18 @@ export default class Application {
         this.height = options.height;
 
         window.addEventListener('resize', this.screen.setResolution);
+    }
+
+    /*
+        loadingmodeがstatic の場合
+            srcはルートパスを与える。webpackによってバンドルはされない。
+            デプロイするときは、静的ファイルをアップロードする必要がある。
+        loadingmodeがdynamicの場合 
+            srcは相対パスを与える。webpackによってバンドルされる。
+            engin/loaderのrequire()の中身をイイカンジのルートパスにする必要がある。
+    */
+    addAsset(id: string, src: string){
+        this.loadingFunctions[this.loadingMode](id, src);
     }
 
     setCanvas(el){
