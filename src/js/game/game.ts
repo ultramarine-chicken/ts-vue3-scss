@@ -5,11 +5,11 @@ import Ball from './ball';
 import Wall from './wall';
 import WindowEdge from './windowEdge';
 import MainScene from './mainScene';
+import ClientWatcher from './client-watcher';
 
 //エイリアス
 
 export default class Game extends Engin.Application{
-    DOMInformation: any;
     constructor(options){
         super(options);
         
@@ -19,17 +19,6 @@ export default class Game extends Engin.Application{
         }
         Engin.Loader.loadAll()
                 .then(this.setup.bind(this));
-
-        const canvasRect = options.el.getBoundingClientRect();
-
-        this.DOMInformation = {
-            canvasY: canvasRect.top,
-            windowHeight : document.documentElement.clientHeight,
-            canvasHeight: options.el.clientHeight,
-            screenRatioToCanvas: ()=>{
-                return this.height/this.DOMInformation.canvasHeight;
-            }
-        };
     }
     setup(){
         console.log('setup');
@@ -47,10 +36,14 @@ export default class Game extends Engin.Application{
         const rightWall = new Wall(this.width, 0, 1, this.height);
         const topWall = new Wall(0, 0, this.width, 1);
         const bottomWall = new Wall(0, this.height, this.width, 1);
-        const windowTopWall = new WindowEdge(gameInfo, 'top');
-        const windowBottomWall = new WindowEdge(gameInfo, 'bottom');
+
+        const clientWatcher = new ClientWatcher(this.canvas!, {width: this.width, height: this.height});
+        const windowTopWall = new WindowEdge('top', clientWatcher);
+        const windowBottomWall = new WindowEdge('bottom', clientWatcher);
         mainScene.add(windowTopWall);
         mainScene.add(windowBottomWall);
+
+        
         
 
         const ball = new Ball();

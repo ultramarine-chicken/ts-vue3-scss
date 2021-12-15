@@ -1,29 +1,32 @@
 import Wall from './wall';
+
+import ClientWatcher from './client-watcher';
+
 export default class WindowEdge extends Wall{
     getEdge: {top: Function, bottom: Function};
-    canvas: HTMLCanvasElement;
     gameInfo: any;
-    type: string
-    constructor(gameInfo: any, type: string){
+    type: string;
+    watcher: ClientWatcher
+    constructor(type: string, watcher: ClientWatcher){
         super();
         this.getEdge = {
             top: this.getTopEdge.bind(this),
             bottom: this.getBottomEdge.bind(this)
         }
         this.type = type;
-        this.gameInfo = gameInfo;
-        this.canvas = gameInfo.canvas;
+        this.watcher = watcher;
 
-        super(0, this.getEdge[type](), gameInfo.width, 1);
+        super(0, this.getEdge[type](), this.watcher.gameWidth, 1);
     }
     getTopEdge(){
-        return (window.scrollY - this.gameInfo.canvasY)*this.gameInfo.height/this.canvas.clientHeight;
+        const watcher = this.watcher;
+        return (-watcher.canvasTop)*watcher.gameHeight/watcher.canvasHeight;
     }
     getBottomEdge(){
-        return (window.scrollY + document.documentElement.clientHeight - this.gameInfo.canvasY)*this.gameInfo.height/this.canvas.clientHeight;
+        const watcher = this.watcher;
+        return (watcher.viewHeight - watcher.canvasTop)*watcher.gameHeight/watcher.canvasHeight;
     }
     act(delta: number): void {
         this.y = this.getEdge[this.type]();
-        
     }
 }

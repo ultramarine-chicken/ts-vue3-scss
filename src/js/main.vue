@@ -25,7 +25,6 @@
                 width: this.width,
                 height: this.width*this.heightRatioToWidth
             });
-
         }
     });
 </script>
@@ -56,7 +55,6 @@
             
         }
         canvas{
-            
             position: absolute;
             left: 0;
             top: 0;
