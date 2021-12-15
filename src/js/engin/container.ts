@@ -2,7 +2,8 @@ import Rectangle from './rectangle';
 
 export default class Container{
     children: Array<Container> = [];
-    rectangle: Rectangle = new Rectangle();
+    position: {x: number, y: number} = {x: 0, y: 0};
+    size: {width: number, height: number} = {width: 0, height: 0};
     constructor(){
     }
     render(canvas: HTMLCanvasElement){
@@ -14,27 +15,30 @@ export default class Container{
         this.children.push(obj);
     }
     set x(pos: number){
-        this.rectangle.x = pos;
+        this.position.x = pos;
     }
     get x(){
-        return this.rectangle.x;
+        return this.position.x;
     }
     set y(pos: number){
-        this.rectangle.y = pos;
+        this.position.y = pos;
     }
     get y(){
-        return this.rectangle.y;
+        return this.position.y;
     }
     set width(wid: number){
-        this.rectangle.width = wid;
+        this.size.width = wid;
     }
     get width(){
-        return this.rectangle.width;
+        return this.size.width;
     }
     set height(hei: number){
-        this.rectangle.height = hei;
+        this.size.height = hei;
     }
     get height(){
-        return this.rectangle.height;
+        return this.size.height;
+    }
+    get rectangle(){
+        return new Rectangle(this.x, this.y, this.width, this.height);
     }
 }

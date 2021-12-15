@@ -32,13 +32,17 @@ export default class Application {
     /*
         loadingmodeがstatic の場合
             srcはルートパスを与える。webpackによってバンドルはされない。
-            デプロイするときは、静的ファイルをアップロードする必要がある。
+            デプロイするときは、静的ファイルもイイカンジにアップロードする必要がある。
+            現状、うまくいかない。
         loadingmodeがdynamicの場合 
             srcは相対パスを与える。webpackによってバンドルされる。
             engin/loaderのrequire()の中身をイイカンジのルートパスにする必要がある。
     */
     addAsset(id: string, src: string){
         this.loadingFunctions[this.loadingMode](id, src);
+    }
+    loadAll(){
+        return Loader.loadAll();
     }
 
     setCanvas(el){
@@ -65,10 +69,6 @@ export default class Application {
 
         this.screen.clear();
         this.baseContainer.render(this.canvas!);
-
-        const ctx = this.canvas!.getContext('2d')!;
-        ctx.font = '20px sans-serif';
-        ctx.fillText(""+Math.floor(this.ticker.delta*100)*0.01, 40, 40);
     }
 
     startLoop(){

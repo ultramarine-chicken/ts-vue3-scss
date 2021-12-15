@@ -17,7 +17,5 @@ export default class Actor extends Container{
     beAddedToScene(scene: Scene){
         scene.add(this);
     }
-    detectCollision(other: Actor){
-        return this.rectangle.detectCollision(other.rectangle);
-    }
+
 }

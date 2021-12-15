@@ -1,6 +1,6 @@
 import * as Engin from '../engin/engin';
 
-export default class Ball extends Engin.SpriteActor{
+export default class Ball extends Engin.MovableSpriteActor{
     vx: number = 0;
     vy: number = 0;
     walls: Set<any> = new Set();
@@ -20,6 +20,7 @@ export default class Ball extends Engin.SpriteActor{
 
     }
     act(delta: number): void {
+
         this.detectHitToWalls();
         this.move(delta);
     }

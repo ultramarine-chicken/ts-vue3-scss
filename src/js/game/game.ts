@@ -10,14 +10,19 @@ import ClientWatcher from './client-watcher';
 //エイリアス
 
 export default class Game extends Engin.Application{
-    constructor(options){
+    constructor(options: {
+        el: HTMLCanvasElement,
+        width: number, height: number
+    }){
         super(options);
+
+        this.loadingMode = 'dynamic';
         
         const assets = assetData.assets;
         for(let i=0, len=assets.length;i<len;i++){
             this.addAsset(assets[i].id, assetData.path + assets[i].src);
         }
-        Engin.Loader.loadAll()
+        this.loadAll()
                 .then(this.setup.bind(this));
     }
     setup(){
@@ -26,12 +31,6 @@ export default class Game extends Engin.Application{
         const mainScene = new MainScene();
         this.currentScene = mainScene;
 
-        const gameInfo = {
-            canvas: this.canvas,
-            width: this.width,
-            height: this.height,
-            canvasY: this.canvas!.getBoundingClientRect().top
-        }
         const leftWall = new Wall(0, 0, 1, this.height);
         const rightWall = new Wall(this.width, 0, 1, this.height);
         const topWall = new Wall(0, 0, this.width, 1);
@@ -50,8 +49,6 @@ export default class Game extends Engin.Application{
         ball.walls = new Set([leftWall, rightWall, topWall, bottomWall, windowTopWall, windowBottomWall]);
         this.baseContainer.add(ball);
         mainScene.add(ball);
-
-
 
         
         this.startLoop();
