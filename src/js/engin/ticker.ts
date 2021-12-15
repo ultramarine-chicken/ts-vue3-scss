@@ -3,8 +3,7 @@ export default class Ticker {
     prevTimeStamp: number = 0;
     FPS: number = 60;
     readonly expectedElapsedTime = 1000/this.FPS;
-    maxFPS: number = 60;
-    readonly allowedElapsedTime = 1000/this.maxFPS;
+    readonly permittedDelay = 2;
     delta: number = 1;
     looping: any = undefined;
 
@@ -20,18 +19,8 @@ export default class Ticker {
     }
     loop(timeStamp: number){
         const elapsedTime = timeStamp - this.prevTimeStamp;
-
-        const accuracy = 0.9;
-        if(elapsedTime < this.allowedElapsedTime*accuracy || elapsedTime > this.allowedElapsedTime*3){
-            requestAnimationFrame(this.loop.bind(this));
-        }
-
-
-        this.delta = elapsedTime/this.expectedElapsedTime;
+        this.delta = Math.min(elapsedTime/this.expectedElapsedTime, this.permittedDelay);
         this.prevTimeStamp = timeStamp;
-
-        
-
 
         this.base(undefined, this.delta);
 

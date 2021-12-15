@@ -42,6 +42,10 @@ export default class Application {
 
         this.screen.clear();
         this.baseContainer.render(this.canvas!);
+
+        const ctx = this.canvas!.getContext('2d')!;
+        ctx.font = '20px sans-serif';
+        ctx.fillText(""+Math.floor(this.ticker.delta*100)*0.01, 40, 40);
     }
 
     startLoop(){

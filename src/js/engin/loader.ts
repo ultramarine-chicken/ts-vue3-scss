@@ -1,6 +1,8 @@
 export default class Loader{
     static promises: Array<Promise<any>> = [];
     static assets: Map<string, any> = new Map();
+    static preCanvas = document.createElement('canvas') as HTMLCanvasElement;
+    static rectangles = {};
     constructor(){
 
     }

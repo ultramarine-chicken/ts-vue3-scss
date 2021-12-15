@@ -33,6 +33,7 @@ export default class Ball extends Engin.SpriteActor{
             if(this.detectCollision(wall)){
                 this.vx = -this.vx;
                 this.vy = -this.vy;
+                return;
             }
         }
     }
