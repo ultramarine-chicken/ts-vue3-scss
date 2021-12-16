@@ -54,6 +54,21 @@ export default class Game extends Engin.Application{
             textShowingDelta.text = ((this.ticker.delta*1000)|0)/1000 + '';
         }
         mainScene.add(textShowingDelta);
+
+        const topaza = new Engin.SpriteActor(Engin.Loader.get('aza'));
+        this.baseContainer.add(topaza);
+        mainScene.add(topaza);
+        topaza.act = () => {
+            topaza.y = -clientWatcher.canvasTop*clientWatcher.gameRatioToCanvasAboutSize;
+        }
+
+        const bottomaza = new Engin.SpriteActor(Engin.Loader.get('aza'));
+        this.baseContainer.add(bottomaza);
+        mainScene.add(bottomaza);
+        bottomaza.act = () => {
+            const watcher = clientWatcher;
+            bottomaza.y = (watcher.viewHeight - watcher.canvasTop)*watcher.gameRatioToCanvasAboutSize - bottomaza.height;
+        }
         
         this.startLoop();
     }

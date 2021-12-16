@@ -25,8 +25,8 @@ export default class Ball extends Engin.SpriteActor{
         this.x = (this.x + this.vx * delta);
         this.y = (this.y + this.vy * delta);
 
-        this.vx += (Math.random()-0.5)*1;
-        this.vy += (Math.random()-0.5)*1;
+        this.vx += (Math.random()-0.5)*0.2;
+        this.vy += (Math.random()-0.5)*0.2;
     }
     detectHitToWalls(){
         for(let wall of this.walls){
