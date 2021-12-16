@@ -1,12 +1,16 @@
+import RenderingContext from './rendering_context';
+
 export default class Screen {
     canvas: HTMLCanvasElement | undefined = undefined;
     resolution: number = window.devicePixelRatio || 1;
     settingResolution: boolean = false;
-
+    context: RenderingContext | undefined;
     getCanvasElement(el: HTMLCanvasElement){
         this.canvas = el!;
         window.removeEventListener('resize', this.setResolution);
         window.addEventListener('resize', this.setResolution);
+
+        this.context = new RenderingContext(el);
     }
     setSize(width: number, height: number){
         if(this.canvas){

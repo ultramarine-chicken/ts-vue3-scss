@@ -30,7 +30,6 @@ export default class Ball extends Engin.SpriteActor{
         this.y = (this.y + this.vy * delta);
     }
     detectHitToWalls(){
-        console.log(this.hitRect);
         for(let wall of this.walls){
             if(this.detectCollision(wall)){
                 this.vx = -this.vx;

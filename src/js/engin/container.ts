@@ -6,9 +6,9 @@ export default class Container{
     size: {width: number, height: number} = {width: 0, height: 0};
     constructor(){
     }
-    render(canvas: HTMLCanvasElement){
+    render(context){
         for(let i=0, len=this.children.length;i<len;i++){
-            this.children[i].render(canvas!);
+            this.children[i].render(context);
         }
     }
     add(obj: Container){

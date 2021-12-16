@@ -70,7 +70,7 @@ export default class Application {
         }
 
         this.screen.clear();
-        this.baseContainer.render(this.canvas!);
+        this.baseContainer.render(this.screen.context);
     }
 
     startLoop(){

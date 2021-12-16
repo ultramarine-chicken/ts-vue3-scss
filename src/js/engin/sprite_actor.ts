@@ -15,11 +15,8 @@ export default class SpriteActor extends Actor{
         this.height = image.height;
 
     }
-    render(canvas: HTMLCanvasElement){
-        const cxt = canvas.getContext('2d')!;
-        cxt.drawImage(this.sprite.image, 
-                        this.sprite.rectangle.x, this.sprite.rectangle.y, this.sprite.rectangle.width, this.sprite.rectangle.height,
-                        this.x | 0, this.y | 0, this.width | 0, this.height | 0);
+    render(context){
+        context.drawImage(this.sprite.image, this.position, this.size, this.sprite.rectangle);
     }
     beAddedToContainer(container: Container){
         container.add(this);
