@@ -6,21 +6,28 @@ import Actor from './actor';
 import Rectangle from './rectangle';
 
 export default class SpriteActor extends Actor{
-    sprite: Sprite;
-    constructor(image: any = undefined, scene: Scene | undefined = undefined){
-        super(scene);
-        this.sprite = new Sprite(image);
+    _sprite: Sprite;
+    constructor(image: any = undefined){
+        super();
+        this._sprite = new Sprite(image);
 
-        this.width = image.width;
-        this.height = image.height;
+        this.width = image?.width || 0;
+        this.height = image?.height || 0;
 
-        this.hitRect = {x: 0, y: 0, width: image.width, height: image.height};
+        this.hitRect = {x: 0, y: 0, width: image?.width || 0, height: image?.height || 0};
 
     }
     render(context){
-        context.drawImage(this.sprite.image, this.position, this.size, this.sprite.rectangle);
+        if(this.sprite.image){
+            context.drawImage(this._sprite.image, this.position, this.size, this._sprite.rectangle);
+        }
     }
-    beAddedToContainer(container: Container){
-        container.add(this);
+    set sprite(img:any){
+        this._sprite.image = img;
+        this._sprite.rectangle = {x: 0, y: 0, width: img.width, height: img.height};
+        this.hitRect = {x: 0, y: 0, width: img.width, height: img.height};
+    }
+    get sprite(){
+        return this._sprite;
     }
 }

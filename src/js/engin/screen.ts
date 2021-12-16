@@ -44,9 +44,6 @@ export default class Screen {
                 const width = canvas.width;
                 const height = canvas.height;
 
-                console.log(canvas.clientWidth);
-                console.log(this.resolution);
-
                 //canvas.width = width*this.resolution;
                 //canvas.height = height*this.resolution;
 

@@ -48,7 +48,13 @@ export default class Game extends Engin.Application{
         this.baseContainer.add(ball);
         mainScene.add(ball);
 
-
+        const textShowingDelta = new Engin.Text('delta: ' + this.ticker.delta);
+        this.baseContainer.add(textShowingDelta);
+        textShowingDelta.act = () => {
+            //textShowingDelta.text = Math.floor(this.ticker.delta*1000)/1000 + "";
+            textShowingDelta.text = this.ticker.delta + '';
+        }
+        mainScene.add(textShowingDelta);
         
         this.startLoop();
     }

@@ -5,6 +5,7 @@ import SpriteActor from './sprite_actor';
 import Loader from './loader';
 import Rectangle from './rectangle';
 import Scene from './scene';
+import Text from './text';
 
 
-export {Application, Container, Actor, SpriteActor, Loader, Rectangle, Scene};
+export {Application, Container, Actor, SpriteActor, Loader, Rectangle, Scene, Text};

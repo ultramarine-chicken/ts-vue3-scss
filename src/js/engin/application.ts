@@ -77,10 +77,5 @@ export default class Application {
         this.ticker.start();
     }
 
-    createSpriteFromAsset(id: string){
-        return new Sprite(Loader.get(id));
-    }
-    newSprite(image: any){
-        return new Sprite(image);
-    }
+
 };

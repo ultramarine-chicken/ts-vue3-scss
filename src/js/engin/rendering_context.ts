@@ -6,6 +6,6 @@ export default class RenderingContext {
     drawImage(img, position, size, rectangle){
         this.cxt.drawImage(img, 
                             rectangle.x, rectangle.y, rectangle.width, rectangle.height,
-                            position.x, position.y, size.width, size.height);
+                            position.x, position.y, rectangle.width, rectangle.height);
     }
 }

@@ -7,9 +7,8 @@ export default class Actor extends Container{
     vx: number = 0;
     vy: number = 0;
     hitRect: {x: number, y: number, width: number, height: number} = {x: 0, y: 0, width: this.width, height: this.height};
-    constructor(scene: Scene | undefined = undefined){
+    constructor(){
         super();
-        if(scene) scene.add(this);
     }
     update(delta: number = 1): void {
         this.act(delta);
