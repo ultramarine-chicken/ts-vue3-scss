@@ -2,7 +2,7 @@ import Wall from './wall';
 
 import ClientWatcher from './client-watcher';
 
-export default class WindowEdge extends Wall{
+export default class BrowserEdge extends Wall{
     getEdge: {top: Function, bottom: Function};
     gameInfo: any;
     type: string;

@@ -23,23 +23,25 @@ export default class ClientWatcher{
     }
     getScrollingInfo(){
         if(!this.ticking) {
+            this.ticking = true;
             requestAnimationFrame(()=>{
-                this.ticking = false;
                 this.scrollY = window.scrollY;
                 this.canvasTop = this.canvas.getBoundingClientRect().top;
+                this.ticking = false;
             });
-            this.ticking = true;
+            
         }
     }
     getResizingInfo(){
         if(!this.ticking){
+            this.ticking = true;
             requestAnimationFrame(()=>{
-                this.ticking = false;
                 this.canvasHeight = this.canvas.clientHeight;
                 this.viewHeight = window.innerHeight;
                 this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvasHeight;
+                this.ticking = false;
             });
-            this.ticking = true;
+            
         }
 
     }

@@ -5,6 +5,7 @@ export default class Screen {
     resolution: number = window.devicePixelRatio || 1;
     settingResolution: boolean = false;
     context: RenderingContext | undefined;
+    gameSize: {width: number, height: number} = {width: 500, height: 2500};
     getCanvasElement(el: HTMLCanvasElement){
         this.canvas = el!;
         window.removeEventListener('resize', this.setResolution);
@@ -14,13 +15,11 @@ export default class Screen {
     }
     setSize(width: number, height: number){
         if(this.canvas){
-            this.canvas.width = width;
-            this.canvas.height = height;
+            this.gameSize.width = width;
+            this.gameSize.height = height;
 
             this.setResolution();
             
-        } else {
-            throw Error('The canvas has not been set.');
         }
     }
     getContext(opt: string){
@@ -37,33 +36,23 @@ export default class Screen {
 
     setResolution(){
         if(!this.settingResolution){
+            this.settingResolution = true;
             requestAnimationFrame(()=>{
-                this.settingResolution = false;
+                
 
                 const canvas = this.canvas!;
-                const width = canvas.width;
-                const height = canvas.height;
+                const width = canvas.clientWidth;
+                const height = canvas.clientHeight;
 
-                //canvas.width = width*this.resolution;
-                //canvas.height = height*this.resolution;
+                canvas.width = width*this.resolution;
+                canvas.height = height*this.resolution;
 
                 const cxt = canvas.getContext('2d')!;
-                //cxt.scale(this.resolution, this.resolution);
+                cxt.scale(canvas.width/this.gameSize.width, canvas.height/this.gameSize.height);
 
-
-                /*12/16 メモ
-                    canvas.clientHeightとcanvas.heightとgame.heightを分けて考えなければならない。
-                    描画時にgame.heightとcanvas.heightの比を考慮するとか
-
-                    canvas.clientHeightは所与
-                    devicePixelRatioを考慮してcanvas.heightを決定
-                    game.heightは所与
-                    「描画時に」座標、サイズをcanvas.heightとgame.heightから割り出す。
-                    ここまでをrenderingContextの中で処理するべき。
-                */
-
+                this.settingResolution = false;
             });
-            this.settingResolution = true;
+            
         }
     }
 }

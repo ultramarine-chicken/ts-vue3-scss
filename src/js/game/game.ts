@@ -3,7 +3,7 @@ import * as Engin from '../engin/engin';
 
 import Ball from './ball';
 import Wall from './wall';
-import WindowEdge from './windowEdge';
+import BrowserEdge from './windowEdge';
 import MainScene from './mainScene';
 import ClientWatcher from './client-watcher';
 
@@ -38,8 +38,8 @@ export default class Game extends Engin.Application{
         const bottomWall = new Wall(0, this.height, this.width, 1);
 
         const clientWatcher = new ClientWatcher(this.canvas!, {width: this.width, height: this.height});
-        const windowTopWall = new WindowEdge('top', clientWatcher);
-        const windowBottomWall = new WindowEdge('bottom', clientWatcher);
+        const windowTopWall = new BrowserEdge('top', clientWatcher);
+        const windowBottomWall = new BrowserEdge('bottom', clientWatcher);
         mainScene.add(windowTopWall);
         mainScene.add(windowBottomWall);
 
@@ -51,8 +51,7 @@ export default class Game extends Engin.Application{
         const textShowingDelta = new Engin.Text('delta: ' + this.ticker.delta);
         this.baseContainer.add(textShowingDelta);
         textShowingDelta.act = () => {
-            //textShowingDelta.text = Math.floor(this.ticker.delta*1000)/1000 + "";
-            textShowingDelta.text = this.ticker.delta + '';
+            textShowingDelta.text = ((this.ticker.delta*1000)|0)/1000 + '';
         }
         mainScene.add(textShowingDelta);
         

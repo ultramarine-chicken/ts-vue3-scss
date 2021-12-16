@@ -29,9 +29,6 @@ export default class Ticker {
 
         requestAnimationFrame(this.loop.bind(this));
     }
-    canRender(){
-        return this.loopCount != 0;
-    }
     stop(){
         cancelAnimationFrame(this.looping);
     }
