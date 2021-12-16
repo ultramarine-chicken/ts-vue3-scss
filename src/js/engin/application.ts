@@ -27,6 +27,7 @@ export default class Application {
         this.height = options.height;
     }
 
+
     /*
         loadingmodeがstatic の場合
             srcはルートパスを与える。webpackによってバンドルはされない。
@@ -43,8 +44,12 @@ export default class Application {
         return Loader.loadAll();
     }
 
-    setCanvas(el){
-        this.screen.getCanvasElement(el)
+    setCanvas(el: HTMLCanvasElement){
+        this.screen.getCanvasElement(el);
+        this.screen.setResolution();
+
+        const cxt = el.getContext('2d')!;
+        cxt.imageSmoothingEnabled = true;
     }
     getContext(){
         return this.screen.canvas!.getContext('2d')!;

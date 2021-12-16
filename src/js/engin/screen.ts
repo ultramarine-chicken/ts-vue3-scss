@@ -6,6 +6,7 @@ export default class Screen {
     settingResolution: boolean = false;
     context: RenderingContext | undefined;
     gameSize: {width: number, height: number} = {width: 500, height: 2500};
+    prevInnerWidth: number = 0;
     getCanvasElement(el: HTMLCanvasElement){
         this.canvas = el;
         window.removeEventListener('resize', this.setResolution.bind(this));
@@ -36,7 +37,8 @@ export default class Screen {
         if(!this.settingResolution){
             this.settingResolution = true;
             requestAnimationFrame(()=>{
-                if(this.canvas){
+                const innerWidth = window.innerWidth;
+                if(this.prevInnerWidth != innerWidth){
                     const canvas = this.canvas!;
                     const width = canvas.clientWidth;
                     const height = canvas.clientHeight;
@@ -46,6 +48,8 @@ export default class Screen {
     
                     const cxt = canvas.getContext('2d')!;
                     cxt.scale(canvas.width/this.gameSize.width, canvas.height/this.gameSize.height);
+
+                    this.prevInnerWidth = innerWidth;
                 }
 
 

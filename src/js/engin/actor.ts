@@ -19,8 +19,8 @@ export default class Actor extends Container{
     beAddedToScene(scene: Scene){
         scene.add(this);
     }
-    get virtualPosition(){
-        return {x: this.x + this.vx, y: this.y + this.vy};
+    calcVirtualPosition(delta: number){
+        return {x: this.x + this.vx*delta, y: this.y + this.vy*delta};
     }
     calcGlobalHitArea(position: {x: number, y: number}, hitRect: {x: number, y: number, width: number, height: number}){
         return new Rectangle(position.x + hitRect.x, position.y + hitRect.y, 
@@ -29,18 +29,19 @@ export default class Actor extends Container{
     calcNowHitArea(){
         return this.calcGlobalHitArea(this.position, this.hitRect);
     }
-    calcVirtualHitArea(){
-        return this.calcGlobalHitArea(this.virtualPosition, this.hitRect);
+    calcVirtualHitArea(delta: number){
+        return this.calcGlobalHitArea(this.calcVirtualPosition(delta), this.hitRect);
     }
 
-    detectCollision(other: Actor){
+    detectCollision(other: Actor, delta: number){
         const thisHitArea = this.calcNowHitArea();
-        const thisVirtualHitArea = this.calcVirtualHitArea();
+        const thisVirtualHitArea = this.calcVirtualHitArea(delta);
         const otherHitArea = other.calcNowHitArea();
-        const otherVirtualHitArea = other.calcVirtualHitArea();
+        const otherVirtualHitArea = other.calcVirtualHitArea(delta);
 
         let verticalCollision = false;
         let horizontalCollision = false;
+        
         if(thisVirtualHitArea.detectCollision(otherVirtualHitArea)){
             if(!thisHitArea.detectVerticalCollision(otherHitArea)){
                 verticalCollision = true;

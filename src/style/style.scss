@@ -4,11 +4,13 @@
 body{
     background-color: #da9453;
     font-family: sans-serif;
+    position: relative;
     overflow-x: hidden;
 }
 
 #main{
     position: relative;
+    overflow-x: hidden;
 
     @include mq-pc{
         left: 100px;

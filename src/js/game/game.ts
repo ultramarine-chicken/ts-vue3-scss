@@ -11,9 +11,9 @@ import ClientWatcher from './client-watcher';
 
 export default class Game extends Engin.Application{
     constructor(options: {
-        el: HTMLCanvasElement,
+        el: HTMLCanvasElement | undefined,
         width: number, height: number
-    }){
+    } | undefined = undefined){
         super(options);
 
 
@@ -32,29 +32,37 @@ export default class Game extends Engin.Application{
         const mainScene = new MainScene();
         this.currentScene = mainScene;
 
-        const leftWall = new Wall(0, 0, 1, this.height);
-        const rightWall = new Wall(this.width, 0, 1, this.height);
-        const topWall = new Wall(0, 0, this.width, 1);
-        const bottomWall = new Wall(0, this.height, this.width, 1);
+        const thickness = 500;
+        const leftWall = new Wall(-thickness, 0, thickness, this.height);
+        const rightWall = new Wall(this.width, 0, thickness, this.height);
+        const topWall = new Wall(0, -thickness, this.width, thickness);
+        const bottomWall = new Wall(0, this.height, this.width, thickness);
 
+        
         const clientWatcher = new ClientWatcher(this.canvas!, {width: this.width, height: this.height});
-        const windowTopWall = new BrowserEdge('top', clientWatcher);
-        const windowBottomWall = new BrowserEdge('bottom', clientWatcher);
-        mainScene.add(windowTopWall);
-        mainScene.add(windowBottomWall);
+        const browserTopEdge = new BrowserEdge(clientWatcher, 'top');
+        const browserBottomEdge = new BrowserEdge(clientWatcher, 'bottom');
+        mainScene.add(browserTopEdge);
+        mainScene.add(browserBottomEdge);
 
         const ball = new Ball();
-        ball.walls = new Set([leftWall, rightWall, topWall, bottomWall, windowTopWall, windowBottomWall]);
+        ball.walls = new Set([leftWall, rightWall, topWall, bottomWall]);
+        ball.browserTopEdge = browserTopEdge;
+        ball.browserBottomEdge = browserBottomEdge;
         this.baseContainer.add(ball);
         mainScene.add(ball);
 
-        const textShowingDelta = new Engin.Text('delta: ' + this.ticker.delta);
-        this.baseContainer.add(textShowingDelta);
-        textShowingDelta.act = () => {
-            textShowingDelta.text = ((this.ticker.delta*1000)|0)/1000 + '';
-        }
-        mainScene.add(textShowingDelta);
+        for(let i=0;i<50;i++){
+            const aza = new Engin.SpriteActor(Engin.Loader.get('aza'));
+            this.baseContainer.add(aza);
+            aza.x = -30 + Math.random()*240;
+            aza.y = 650 + 120*Math.random();
 
+            aza.size.width *= 0.3;
+            aza.size.height *= 0.3;
+        }
+
+/*
         const topaza = new Engin.SpriteActor(Engin.Loader.get('aza'));
         this.baseContainer.add(topaza);
         mainScene.add(topaza);
@@ -68,7 +76,7 @@ export default class Game extends Engin.Application{
         bottomaza.act = () => {
             const watcher = clientWatcher;
             bottomaza.y = (watcher.viewHeight - watcher.canvasTop)*watcher.gameRatioToCanvasAboutSize - bottomaza.height;
-        }
+        }*/
         
         this.startLoop();
     }
