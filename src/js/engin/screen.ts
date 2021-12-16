@@ -7,20 +7,18 @@ export default class Screen {
     context: RenderingContext | undefined;
     gameSize: {width: number, height: number} = {width: 500, height: 2500};
     getCanvasElement(el: HTMLCanvasElement){
-        this.canvas = el!;
-        window.removeEventListener('resize', this.setResolution);
-        window.addEventListener('resize', this.setResolution);
+        this.canvas = el;
+        window.removeEventListener('resize', this.setResolution.bind(this));
+        window.addEventListener('resize', this.setResolution.bind(this), {passive: true});
 
         this.context = new RenderingContext(el);
     }
     setSize(width: number, height: number){
-        if(this.canvas){
-            this.gameSize.width = width;
-            this.gameSize.height = height;
+        this.gameSize.width = width;
+        this.gameSize.height = height;
 
-            this.setResolution();
-            
-        }
+        
+        this.setResolution();
     }
     getContext(opt: string){
         if(this.canvas){
@@ -38,21 +36,21 @@ export default class Screen {
         if(!this.settingResolution){
             this.settingResolution = true;
             requestAnimationFrame(()=>{
-                
+                if(this.canvas){
+                    const canvas = this.canvas!;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+    
+                    canvas.width = width*this.resolution;
+                    canvas.height = height*this.resolution;
+    
+                    const cxt = canvas.getContext('2d')!;
+                    cxt.scale(canvas.width/this.gameSize.width, canvas.height/this.gameSize.height);
+                }
 
-                const canvas = this.canvas!;
-                const width = canvas.clientWidth;
-                const height = canvas.clientHeight;
-
-                canvas.width = width*this.resolution;
-                canvas.height = height*this.resolution;
-
-                const cxt = canvas.getContext('2d')!;
-                cxt.scale(canvas.width/this.gameSize.width, canvas.height/this.gameSize.height);
 
                 this.settingResolution = false;
             });
-            
         }
     }
 }
