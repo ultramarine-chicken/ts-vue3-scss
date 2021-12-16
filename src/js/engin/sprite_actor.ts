@@ -25,18 +25,3 @@ export default class SpriteActor extends Actor{
         container.add(this);
     }
 }
-
-class MovableSpriteActor extends SpriteActor{
-    vx: number = 0;
-    vy: number = 0;
-    hitRect: {x: number, y: number, width: number, height: number} = {x: 0, y: 0, width: this.width, height: this.height};
-    constructor(image: any = undefined, scene: Scene | undefined = undefined){
-        super(image, scene);
-    }
-    detectCollision(other: Actor){
-        const virtualPosition = {x: this.x + this.vx, y: this.y + this.vy};
-        
-        return true;
-    }
-}
-export {MovableSpriteActor};

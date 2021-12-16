@@ -5,6 +5,8 @@ export default class Screen {
 
     getCanvasElement(el: HTMLCanvasElement){
         this.canvas = el!;
+        window.removeEventListener('resize', this.setResolution);
+        window.addEventListener('resize', this.setResolution);
     }
     setSize(width: number, height: number){
         if(this.canvas){
@@ -12,6 +14,7 @@ export default class Screen {
             this.canvas.height = height;
 
             this.setResolution();
+            
         } else {
             throw Error('The canvas has not been set.');
         }

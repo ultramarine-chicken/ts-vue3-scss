@@ -25,8 +25,6 @@ export default class Application {
         if(options.width && options.height) this.screen.setSize(options.width, options.height);
         this.width = options.width;
         this.height = options.height;
-
-        window.addEventListener('resize', this.screen.setResolution);
     }
 
     /*
@@ -53,6 +51,10 @@ export default class Application {
     }
     get canvas(){
         return this.screen.canvas;
+    }
+    set resolution(resolution: number){
+        this.screen.resolution = resolution;
+        this.screen.setResolution();
     }
 
     baseTickerFunction(){

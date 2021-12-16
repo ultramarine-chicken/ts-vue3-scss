@@ -1,6 +1,6 @@
 import * as Engin from '../engin/engin';
 
-export default class Ball extends Engin.MovableSpriteActor{
+export default class Ball extends Engin.SpriteActor{
     vx: number = 0;
     vy: number = 0;
     walls: Set<any> = new Set();
@@ -30,6 +30,7 @@ export default class Ball extends Engin.MovableSpriteActor{
         this.y = (this.y + this.vy * delta);
     }
     detectHitToWalls(){
+        console.log(this.hitRect);
         for(let wall of this.walls){
             if(this.detectCollision(wall)){
                 this.vx = -this.vx;
