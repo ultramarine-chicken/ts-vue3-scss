@@ -14,6 +14,8 @@ export default class SpriteActor extends Actor{
         this.width = image.width;
         this.height = image.height;
 
+        this.hitRect = {x: 0, y: 0, width: image.width, height: image.height};
+
     }
     render(context){
         context.drawImage(this.sprite.image, this.position, this.size, this.sprite.rectangle);

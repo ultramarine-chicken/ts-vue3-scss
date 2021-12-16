@@ -26,8 +26,7 @@ export default class ClientWatcher{
             requestAnimationFrame(()=>{
                 this.ticking = false;
                 this.scrollY = window.scrollY;
-                const rect = this.canvas.getBoundingClientRect();
-                this.canvasTop = rect.top;
+                this.canvasTop = this.canvas.getBoundingClientRect().top;
             });
             this.ticking = true;
         }
@@ -36,7 +35,7 @@ export default class ClientWatcher{
         if(!this.ticking){
             requestAnimationFrame(()=>{
                 this.ticking = false;
-                this.canvasHeight = this.canvas.getBoundingClientRect().height;
+                this.canvasHeight = this.canvas.clientHeight;
                 this.viewHeight = window.innerHeight;
                 this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvasHeight;
             });

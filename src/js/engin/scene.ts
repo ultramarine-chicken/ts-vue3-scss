@@ -3,7 +3,7 @@ import Actor from './actor';
 export default class Scene {
     actors: Set<Actor> = new Set();
     update(delta: number){
-        this.act();
+        this.act(delta);
 
         for(let actor of this.actors){
             actor.update(delta);
@@ -12,7 +12,7 @@ export default class Scene {
     add(actor: Actor){
         this.actors.add(actor);
     }
-    act(){
+    act(delta: number){
 
     }
 }

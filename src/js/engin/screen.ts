@@ -39,14 +39,32 @@ export default class Screen {
         if(!this.settingResolution){
             requestAnimationFrame(()=>{
                 this.settingResolution = false;
-                const width = this.canvas!.width;
-                const height = this.canvas!.height;
 
-                this.canvas!.width = width*this.resolution;
-                this.canvas!.height = height*this.resolution;
+                const canvas = this.canvas!;
+                const width = canvas.width;
+                const height = canvas.height;
 
-                const cxt = this.canvas!.getContext('2d')!;
-                cxt.scale(this.resolution, this.resolution);
+                console.log(canvas.clientWidth);
+                console.log(this.resolution);
+
+                //canvas.width = width*this.resolution;
+                //canvas.height = height*this.resolution;
+
+                const cxt = canvas.getContext('2d')!;
+                //cxt.scale(this.resolution, this.resolution);
+
+
+                /*12/16 メモ
+                    canvas.clientHeightとcanvas.heightとgame.heightを分けて考えなければならない。
+                    描画時にgame.heightとcanvas.heightの比を考慮するとか
+
+                    canvas.clientHeightは所与
+                    devicePixelRatioを考慮してcanvas.heightを決定
+                    game.heightは所与
+                    「描画時に」座標、サイズをcanvas.heightとgame.heightから割り出す。
+                    ここまでをrenderingContextの中で処理するべき。
+                */
+
             });
             this.settingResolution = true;
         }

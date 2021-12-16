@@ -25,7 +25,7 @@ export default class Actor extends Container{
     }
     calcGlobalHitArea(position: {x: number, y: number}, hitRect: {x: number, y: number, width: number, height: number}){
         return new Rectangle(position.x + hitRect.x, position.y + hitRect.y, 
-                            position.x + hitRect.x + hitRect.width, position.y + hitRect.y + hitRect.height);
+                            hitRect.width, hitRect.height);
     }
     calcNowHitArea(){
         return this.calcGlobalHitArea(this.position, this.hitRect);
@@ -40,9 +40,15 @@ export default class Actor extends Container{
         const otherHitArea = other.calcNowHitArea();
         const otherVirtualHitArea = other.calcVirtualHitArea();
 
-        let verticalCollision;
-        let horizontalCollision;
-        //if()
-        return thisVirtualHitArea.detectCollision(otherVirtualHitArea);
+        let verticalCollision = false;
+        let horizontalCollision = false;
+        if(thisVirtualHitArea.detectCollision(otherVirtualHitArea)){
+            if(!thisHitArea.detectVerticalCollision(otherHitArea)){
+                verticalCollision = true;
+            } else if(!thisHitArea.detectHorizontalCollision(otherHitArea)){
+                horizontalCollision = true;
+            }
+        }
+        return {vertical: verticalCollision, horizontal: horizontalCollision};
     }
 }

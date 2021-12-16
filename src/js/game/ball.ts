@@ -8,15 +8,15 @@ export default class Ball extends Engin.SpriteActor{
     constructor(){
         super(Engin.Loader.get('ball'));
 
-        this.x = 200;
-        this.y = 200;
+        this.x = 20;
+        this.y = 20;
         const angle = Math.random()*Math.PI*2;
         const v = 5;
         this.vx = Math.cos(angle)*v;
         this.vy = Math.sin(angle)*v;
 
-        this.vx  = 0;
-        this.vy = 5;
+        //this.vx  = 0;
+        //this.vy = 5;
 
     }
     act(delta: number): void {
@@ -31,8 +31,11 @@ export default class Ball extends Engin.SpriteActor{
     }
     detectHitToWalls(){
         for(let wall of this.walls){
-            if(this.detectCollision(wall)){
+            const detectInfo = this.detectCollision(wall);
+            if(detectInfo.vertical){
                 this.vx = -this.vx;
+                return;
+            } else if(detectInfo.horizontal){
                 this.vy = -this.vy;
                 return;
             }

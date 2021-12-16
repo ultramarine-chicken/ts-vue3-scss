@@ -16,4 +16,10 @@ export default class Rectangle {
         return Math.abs((this.x+this.width*0.5) - (other.x+other.width*0.5)) <= (this.width + other.width)*0.5
                 && Math.abs((this.y+this.height*0.5) - (other.y+other.height*0.5)) <= (this.height + other.height)*0.5;
     }
+    detectVerticalCollision(other: Rectangle){
+        return Math.abs((this.x+this.width*0.5) - (other.x+other.width*0.5)) <= (this.width + other.width)*0.5;
+    }
+    detectHorizontalCollision(other: Rectangle){
+        return Math.abs((this.y+this.height*0.5) - (other.y+other.height*0.5)) <= (this.height + other.height)*0.5;
+    }
 }

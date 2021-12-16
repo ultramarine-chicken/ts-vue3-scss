@@ -16,6 +16,7 @@ export default class Game extends Engin.Application{
     }){
         super(options);
 
+
         this.loadingMode = 'dynamic';
         
         const assets = assetData.assets;
@@ -42,13 +43,11 @@ export default class Game extends Engin.Application{
         mainScene.add(windowTopWall);
         mainScene.add(windowBottomWall);
 
-        
-        
-
         const ball = new Ball();
         ball.walls = new Set([leftWall, rightWall, topWall, bottomWall, windowTopWall, windowBottomWall]);
         this.baseContainer.add(ball);
         mainScene.add(ball);
+
 
         
         this.startLoop();

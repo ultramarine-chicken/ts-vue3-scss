@@ -7,5 +7,7 @@ export default class Wall extends Engin.Actor {
         this.y = y;
         this.width = w;
         this.height = h;
+
+        this.hitRect = {x: 0, y: 0, width: w, height: h};
     }
 }
