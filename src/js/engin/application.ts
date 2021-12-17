@@ -69,7 +69,7 @@ export default class Application {
         */
         if(this.currentScene) this.currentScene.update(this.ticker.delta);
 
-        
+
 
         this.screen.clear();
         this.baseContainer.render(this.screen.context);

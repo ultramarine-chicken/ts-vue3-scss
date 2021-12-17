@@ -17,10 +17,22 @@ export default class ClientWatcher{
         this.canvas = canvas;
         this.gameHeight = size.height;
         this.gameWidth = size.width;
-        this.getScrollingInfo();
         this.ticking = false;
-        this.getResizingInfo();
+        this.getInitialInfo();
         this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvasHeight;
+    }
+    getInitialInfo(){
+        if(!this.ticking){
+            this.ticking = true;
+            requestAnimationFrame(()=>{
+                this.scrollY = window.scrollY;
+                this.canvasTop = this.canvas.getBoundingClientRect().top;
+                this.canvasHeight = this.canvas.clientHeight;
+                this.viewHeight = window.innerHeight;
+                this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvasHeight;
+                this.ticking = false;
+            });
+        }
     }
     getScrollingInfo(){
         if(!this.ticking) {

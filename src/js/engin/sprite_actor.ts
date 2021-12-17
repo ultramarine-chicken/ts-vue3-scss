@@ -26,6 +26,7 @@ export default class SpriteActor extends Actor{
         this._sprite.image = img;
         this._sprite.rectangle = {x: 0, y: 0, width: img.width, height: img.height};
         this.hitRect = {x: 0, y: 0, width: img.width, height: img.height};
+        this.size = {width: img.width, height: img.height};
     }
     get sprite(){
         return this._sprite;

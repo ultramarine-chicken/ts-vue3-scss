@@ -7,7 +7,7 @@ export default class Ball extends Engin.SpriteActor{
     browserTopEdge: any | undefined;
     browserBottomEdge: any | undefined;
     DOMInformation: any;
-    readonly elasticity = 0.96;
+    readonly elasticity = 0.7;
     constructor(){
         super(Engin.Loader.get('ball'));
 
@@ -19,21 +19,21 @@ export default class Ball extends Engin.SpriteActor{
         this.vy = Math.sin(angle)*v;
     }
     act(delta: number): void {
-        
+        this.move(delta);
         this.calcVelocity(delta);
         this.detectHitToWalls(delta);
         this.considerBrowserEdges();
-        this.move(delta);
+        
     }
     calcVelocity(delta: number){
         const gravity = 0.1;
         this.vy += gravity*delta;
 
-        const friction = 0.00;
+        const friction = 0.005;
         this.vx -= Math.sign(this.vx)*Math.min(friction*delta, Math.abs(this.vx));
         this.vy -= Math.sign(this.vy)*Math.min(friction*delta, Math.abs(this.vy));
 
-        const max = 5;
+        const max = 15;
         this.vx = Math.min(Math.max(this.vx, -max), max);
         this.vy = Math.min(Math.max(this.vy, -max), max);
     }
@@ -63,12 +63,12 @@ export default class Ball extends Engin.SpriteActor{
     considerBrowserEdges(){
         if(this.y < this.browserTopEdge.y) {
             this.vy = -(this.vy - this.browserTopEdge.vy)*this.elasticity;
-            this.y = this.browserTopEdge.y + 1;
+            this.y = this.browserTopEdge.y;
         }
 
         if(this.y + this.hitRect.y + this.hitRect.height > this.browserBottomEdge.y){
             this.vy = -(this.vy - this.browserBottomEdge.vy)*this.elasticity;
-            this.y = this.browserBottomEdge.y - this.height - 1;
+            this.y = this.browserBottomEdge.y- this.height;
         }
     }
 }

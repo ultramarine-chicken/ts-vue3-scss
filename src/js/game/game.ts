@@ -52,17 +52,13 @@ export default class Game extends Engin.Application{
         this.baseContainer.add(ball);
         mainScene.add(ball);
 
-        for(let i=0;i<50;i++){
-            const aza = new Engin.SpriteActor(Engin.Loader.get('aza'));
-            this.baseContainer.add(aza);
-            aza.x = -30 + Math.random()*240;
-            aza.y = 650 + 120*Math.random();
+        const text = new Engin.Text('hoge');
+        this.baseContainer.add(text);
+        text.x = 0;
+        text.y = 0;
 
-            aza.size.width *= 0.3;
-            aza.size.height *= 0.3;
-        }
 
-/*
+        /*
         const topaza = new Engin.SpriteActor(Engin.Loader.get('aza'));
         this.baseContainer.add(topaza);
         mainScene.add(topaza);
