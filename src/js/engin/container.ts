@@ -4,6 +4,7 @@ export default class Container{
     children: Array<Container> = [];
     position: {x: number, y: number} = {x: 0, y: 0};
     size: {width: number, height: number} = {width: 0, height: 0};
+    scale: {x: number, y: number} = {x: 1, y: 1};
     constructor(){
     }
     render(context){
@@ -30,13 +31,13 @@ export default class Container{
         this.size.width = wid;
     }
     get width(){
-        return this.size.width;
+        return this.size.width*this.scale.x;
     }
     set height(hei: number){
         this.size.height = hei;
     }
     get height(){
-        return this.size.height;
+        return this.size.height*this.scale.y;
     }
     get rectangle(){
         return new Rectangle(this.x, this.y, this.width, this.height);
