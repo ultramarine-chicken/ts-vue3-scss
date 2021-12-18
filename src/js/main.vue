@@ -1,6 +1,10 @@
 <template>
     <div class='main-box' id='main-box'>
         <canvas ref='screen' id="screen"></canvas>
+        <div v-for="i of 200">
+            キムカル丼　並盛500円　大盛630円　特盛780円<br>
+        </div>
+        
         <div class='delta'>{{ delta }}</div>
     </div>
 
@@ -18,6 +22,7 @@
                 width: 200,
                 heightRatioToWidth: 5,
                 delta: '',
+                str: 'hogefoobarhogefoobarhogefoounkohogefoobarhogefoobarhogefoounkohogefoobarhogefoobarhogefoounko'
             }
         },
         mounted(){
@@ -30,7 +35,7 @@
             });
             
             const storageDelta = () => {
-                this.delta = game.ticker.delta.toFixed(3);
+                this.delta = game.clientWatcher;
                 requestAnimationFrame(storageDelta);
             }
             requestAnimationFrame(storageDelta);

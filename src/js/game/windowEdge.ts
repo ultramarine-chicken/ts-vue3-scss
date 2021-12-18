@@ -1,5 +1,3 @@
-import Wall from './wall';
-
 import ClientWatcher from './client-watcher';
 
 import * as Engin from '../engin/engin';
@@ -9,6 +7,7 @@ export default class BrowserEdge extends Engin.Actor{
     type: string;
     prevY: number | undefined;
     getEdge: any = {top: this.getTopEdge.bind(this), bottom: this.getBottomEdge.bind(this)};
+    readonly friction: number = 0.001;
     constructor(clientWatcher: ClientWatcher, type: string){
         super();
         this.watcher = clientWatcher;
@@ -24,14 +23,13 @@ export default class BrowserEdge extends Engin.Actor{
 
         this.prevY = this.y;
 
-        //this.y += this.vy;
-
     }
     getTopEdge(){
         const watcher = this.watcher;
-        return (-watcher.canvasTop)*watcher.gameRatioToCanvasAboutSize - this.rectangle.height;
+        return (-watcher.canvasTop)*watcher.gameRatioToCanvasAboutSize;
     }
     getBottomEdge(){
+        
         const watcher = this.watcher;
         return (watcher.viewHeight - watcher.canvasTop)*watcher.gameRatioToCanvasAboutSize;
     }

@@ -8,6 +8,7 @@ export default class ClientWatcher{
     gameWidth: number;
     gameRatioToCanvasAboutSize: number;
     ticking: boolean = false;
+    preInnerWidth: number = 0;
     constructor(canvas: HTMLCanvasElement, size: {width: number, height: number}){
 
         document.addEventListener('scroll', this.getScrollingInfo.bind(this), {passive: true});
@@ -49,10 +50,16 @@ export default class ClientWatcher{
         if(!this.ticking){
             this.ticking = true;
             requestAnimationFrame(()=>{
-                this.canvasHeight = this.canvas.clientHeight;
+                const innerWidth = window.innerWidth;
+                if(innerWidth != this.preInnerWidth){
+                    this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvas.clientHeight;
+                    this.preInnerWidth = innerWidth;
+                }
+                this.canvasTop = this.canvas.getBoundingClientRect().top;
                 this.viewHeight = window.innerHeight;
-                this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvasHeight;
                 this.ticking = false;
+
+                
             });
             
         }

@@ -2,7 +2,7 @@ import assetData from './assets.js';
 import * as Engin from '../engin/engin';
 
 import Ball from './ball';
-import Wall from './wall';
+import LinerWall from './wall';
 import BrowserEdge from './windowEdge';
 import MainScene from './mainScene';
 import ClientWatcher from './client-watcher';
@@ -10,6 +10,7 @@ import ClientWatcher from './client-watcher';
 //エイリアス
 
 export default class Game extends Engin.Application{
+    clientWatcher: any;
     constructor(options: {
         el: HTMLCanvasElement | undefined,
         width: number, height: number
@@ -33,22 +34,23 @@ export default class Game extends Engin.Application{
         this.currentScene = mainScene;
 
         const thickness = 500;
-        const leftWall = new Wall(-thickness, 0, thickness, this.height);
-        const rightWall = new Wall(this.width, 0, thickness, this.height);
-        const topWall = new Wall(0, -thickness, this.width, thickness);
-        const bottomWall = new Wall(0, this.height, this.width, thickness);
+        const leftWall = new LinerWall(0, 0);
+        const rightWall = new LinerWall(this.width, 0);
+        const topWall = new LinerWall(0, 0);
+        const bottomWall = new LinerWall(0, this.height);
 
         
         const clientWatcher = new ClientWatcher(this.canvas!, {width: this.width, height: this.height});
+        
         const browserTopEdge = new BrowserEdge(clientWatcher, 'top');
         const browserBottomEdge = new BrowserEdge(clientWatcher, 'bottom');
         mainScene.add(browserTopEdge);
         mainScene.add(browserBottomEdge);
 
         const ball = new Ball();
-        ball.walls = new Set([leftWall, rightWall, topWall, bottomWall]);
         ball.browserTopEdge = browserTopEdge;
         ball.browserBottomEdge = browserBottomEdge;
+        ball.walls = {rightWall: rightWall, leftWall: leftWall, topWall: topWall, bottomWall: bottomWall};
         this.baseContainer.add(ball);
         mainScene.add(ball);
 
@@ -58,21 +60,22 @@ export default class Game extends Engin.Application{
         text.y = 0;
 
 
-        /*
+        
         const topaza = new Engin.SpriteActor(Engin.Loader.get('aza'));
         this.baseContainer.add(topaza);
         mainScene.add(topaza);
         topaza.act = () => {
-            topaza.y = -clientWatcher.canvasTop*clientWatcher.gameRatioToCanvasAboutSize;
+            topaza.y = browserTopEdge.y + browserTopEdge.vy*1.5;
         }
 
         const bottomaza = new Engin.SpriteActor(Engin.Loader.get('aza'));
         this.baseContainer.add(bottomaza);
         mainScene.add(bottomaza);
         bottomaza.act = () => {
-            const watcher = clientWatcher;
-            bottomaza.y = (watcher.viewHeight - watcher.canvasTop)*watcher.gameRatioToCanvasAboutSize - bottomaza.height;
-        }*/
+            bottomaza.y = browserBottomEdge.y - bottomaza.height + browserBottomEdge.vy*1.5;
+        }
+        topaza.scale.set(0.5);
+        bottomaza.scale.set(0.5);
         
         this.startLoop();
     }

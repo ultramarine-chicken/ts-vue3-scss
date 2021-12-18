@@ -1,13 +1,10 @@
 import * as Engin from '../engin/engin';
 
-export default class Wall extends Engin.Actor {
-    constructor(x: number=0, y: number=0, w: number=0, h: number=0){
+export default class LinierWall extends Engin.Actor {
+    readonly friction: number = 0.001
+    constructor(x: number=0, y: number=0){
         super();
         this.x = x;
         this.y = y;
-        this.width = w;
-        this.height = h;
-
-        this.hitRect = {x: 0, y: 0, width: w, height: h};
     }
 }
