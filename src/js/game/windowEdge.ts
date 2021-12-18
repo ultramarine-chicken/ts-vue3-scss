@@ -20,9 +20,11 @@ export default class BrowserEdge extends Engin.Actor{
     act(delta: number): void {
         this.y = this.getEdge[this.type]();
 
-        if(this.prevY) this.vy = (this.y - this.prevY)/delta | 0;
+        if(this.prevY) this.vy = (this.y - this.prevY);
 
         this.prevY = this.y;
+
+        //this.y += this.vy;
 
     }
     getTopEdge(){

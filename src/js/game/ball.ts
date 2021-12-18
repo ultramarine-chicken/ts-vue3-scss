@@ -7,7 +7,9 @@ export default class Ball extends Engin.SpriteActor{
     browserTopEdge: any | undefined;
     browserBottomEdge: any | undefined;
     DOMInformation: any;
-    readonly elasticity = 0.7;
+    readonly elasticity = 0.8;
+    readonly airResistance = 0.01;
+    readonly friction = 0.05;
     constructor(){
         super(Engin.Loader.get('ball'));
 
@@ -23,15 +25,16 @@ export default class Ball extends Engin.SpriteActor{
         this.calcVelocity(delta);
         this.detectHitToWalls(delta);
         this.considerBrowserEdges();
+
         
     }
     calcVelocity(delta: number){
         const gravity = 0.1;
         this.vy += gravity*delta;
 
-        const friction = 0.005;
-        this.vx -= Math.sign(this.vx)*Math.min(friction*delta, Math.abs(this.vx));
-        this.vy -= Math.sign(this.vy)*Math.min(friction*delta, Math.abs(this.vy));
+        const airResistance = this.airResistance;
+        this.vx -= Math.sign(this.vx)*Math.min(Math.abs(this.vx)*airResistance*delta, Math.abs(this.vx));
+        this.vy -= Math.sign(this.vy)*Math.min(Math.abs(this.vy)*airResistance*delta, Math.abs(this.vy));
 
         const max = 15;
         this.vx = Math.min(Math.max(this.vx, -max), max);
@@ -61,14 +64,19 @@ export default class Ball extends Engin.SpriteActor{
         }
     }
     considerBrowserEdges(){
-        if(this.y < this.browserTopEdge.y) {
-            this.vy = -(this.vy - this.browserTopEdge.vy)*this.elasticity;
-            this.y = this.browserTopEdge.y;
+        const elasticity = this.elasticity;
+        if(this.y + this.vy < this.browserTopEdge.y) {
+            this.vy = -(this.vy - this.browserTopEdge.vy)*elasticity;
+            this.y += this.browserTopEdge.y - (this.y + this.vy);
+            
+            this.vx -= Math.sign(this.vx)*Math.min(this.friction, Math.abs(this.vx));
         }
+        if(this.y + this.hitRect.y + this.hitRect.height + this.vy> this.browserBottomEdge.y){
+            this.vy = -(this.vy - this.browserBottomEdge.vy)*elasticity;
+            this.y += this.browserBottomEdge.y - (this.y + this.height + this.vy);
 
-        if(this.y + this.hitRect.y + this.hitRect.height > this.browserBottomEdge.y){
-            this.vy = -(this.vy - this.browserBottomEdge.vy)*this.elasticity;
-            this.y = this.browserBottomEdge.y- this.height;
+            this.vx -= Math.sign(this.vx)*Math.min(this.friction, Math.abs(this.vx));
         }
+        
     }
 }
