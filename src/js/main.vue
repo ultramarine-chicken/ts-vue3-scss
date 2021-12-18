@@ -1,9 +1,7 @@
 <template>
     <div class='main-box' id='main-box'>
         <canvas ref='screen' id="screen"></canvas>
-        <div v-for="i of 200">
-            キムカル丼　並盛500円　大盛630円　特盛780円<br>
-        </div>
+
         
         <div class='delta'>{{ delta }}</div>
     </div>
@@ -26,6 +24,7 @@
             }
         },
         mounted(){
+            window.scrollTo(0, 0);
             const screen = this.$refs.screen as HTMLCanvasElement;
             
             const game = new Game({

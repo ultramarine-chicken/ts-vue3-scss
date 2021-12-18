@@ -13,6 +13,7 @@ export default class ClientWatcher{
 
         document.addEventListener('scroll', this.getScrollingInfo.bind(this), {passive: true});
         window.addEventListener('resize', this.getResizingInfo.bind(this), {passive: true});
+        window.addEventListener('orientationchange', this.getInitialInfo.bind(this), {passive: true});
         document.onwheel = this.getScrollingInfo.bind(this);
         
         this.canvas = canvas;
@@ -28,9 +29,8 @@ export default class ClientWatcher{
             requestAnimationFrame(()=>{
                 this.scrollY = window.scrollY;
                 this.canvasTop = this.canvas.getBoundingClientRect().top;
-                this.canvasHeight = this.canvas.clientHeight;
                 this.viewHeight = window.innerHeight;
-                this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvasHeight;
+                this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvas.clientHeight;
                 this.ticking = false;
             });
         }
@@ -55,6 +55,7 @@ export default class ClientWatcher{
                     this.gameRatioToCanvasAboutSize = this.gameHeight/this.canvas.clientHeight;
                     this.preInnerWidth = innerWidth;
                 }
+                this.scrollY = window.scrollY;
                 this.canvasTop = this.canvas.getBoundingClientRect().top;
                 this.viewHeight = window.innerHeight;
                 this.ticking = false;

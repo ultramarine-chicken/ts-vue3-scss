@@ -33,7 +33,6 @@ export default class Game extends Engin.Application{
         const mainScene = new MainScene();
         this.currentScene = mainScene;
 
-        const thickness = 500;
         const leftWall = new LinerWall(0, 0);
         const rightWall = new LinerWall(this.width, 0);
         const topWall = new LinerWall(0, 0);
@@ -54,10 +53,12 @@ export default class Game extends Engin.Application{
         this.baseContainer.add(ball);
         mainScene.add(ball);
 
-        const text = new Engin.Text('hoge');
+        const text = new Engin.Text('キムカル丼', {baseCanvasSize: {width: this.canvas!.width, height: this.canvas!.height}, gameWidth: this.width});
         this.baseContainer.add(text);
         text.x = 0;
         text.y = 0;
+
+        
 
 
         

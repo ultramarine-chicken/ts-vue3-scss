@@ -4,7 +4,7 @@ export default class Container{
     children: Array<Container> = [];
     position: {x: number, y: number} = {x: 0, y: 0};
     size: {width: number, height: number} = {width: 0, height: 0};
-    scale: {x: number, y: number, set: Function} = {x: 1, y: 1, set: (scale: number)=>{console.log(this);this.scale.x = scale; this.scale.y = scale;}};
+    scale: {x: number, y: number, set: Function} = {x: 1, y: 1, set: (scale: number)=>{this.scale.x = scale; this.scale.y = scale;}};
     constructor(){
     }
     render(context){
