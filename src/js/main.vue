@@ -20,7 +20,6 @@
                 width: 200,
                 heightRatioToWidth: 5,
                 delta: '',
-                str: 'hogefoobarhogefoobarhogefoounkohogefoobarhogefoobarhogefoounkohogefoobarhogefoobarhogefoounko'
             }
         },
         mounted(){

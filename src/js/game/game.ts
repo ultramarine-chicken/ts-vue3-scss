@@ -54,17 +54,12 @@ export default class Game extends Engin.Application{
         this.baseContainer.add(ball);
         mainScene.add(ball);
 
-        const text = new Engin.Text('hogehoge', {baseCanvas: this.screen.canvas, gameWidth: this.width});
+        const text = new Engin.Text('あいうえおかきくけこ', {fontSize: 30, gameWidth: this.width, screen: this.screen});
         this.baseContainer.add(text);
         text.x = 0;
         text.y = 0;
-        text.text = ('barabarbarbar');
-        text.fontSize = 30;
-
-        
 
 
-        
         const topaza = new Engin.SpriteActor(Engin.Loader.get('aza'));
         this.baseContainer.add(topaza);
         mainScene.add(topaza);

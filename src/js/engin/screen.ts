@@ -5,19 +5,23 @@ export default class Screen {
     resolution: number = window.devicePixelRatio || 1;
     settingResolution: boolean = false;
     context: RenderingContext | undefined;
-    gameSize: {width: number, height: number} = {width: 500, height: 2500};
+    gameSize: {width: number, height: number} = {width: 200, height: 1000};
+    sizeRatio: number = this.gameSize.height/this.gameSize.width;
     prevInnerWidth: number = 0;
+    offscreenCanvases: Set<any> = new Set();
+
     getCanvasElement(el: HTMLCanvasElement){
         this.canvas = el;
         window.removeEventListener('resize', this.setResolution.bind(this));
         window.addEventListener('resize', this.setResolution.bind(this), {passive: true});
+
 
         this.context = new RenderingContext(el);
     }
     setSize(width: number, height: number){
         this.gameSize.width = width;
         this.gameSize.height = height;
-
+        this.sizeRatio = height/width;
         
         this.setResolution();
     }
@@ -40,14 +44,23 @@ export default class Screen {
                 const innerWidth = window.innerWidth;
                 if(this.prevInnerWidth != innerWidth){
                     const canvas = this.canvas!;
-                    const width = canvas.clientWidth;
-                    const height = canvas.clientHeight;
+                    const styleWidth = canvas.clientWidth;
+                    const styleHeight = styleWidth*this.sizeRatio;
+                    const pixelDepth = this.resolution;
     
-                    canvas.width = width*this.resolution;
-                    canvas.height = height*this.resolution;
+                    canvas.width = styleWidth*pixelDepth;
+                    canvas.height = styleHeight*pixelDepth;
+
+                    const drawingRatio = canvas.width/this.gameSize.width;
     
                     const cxt = canvas.getContext('2d')!;
-                    cxt.scale(canvas.width/this.gameSize.width, canvas.height/this.gameSize.height);
+                    cxt.scale(drawingRatio, drawingRatio);
+
+                    
+                    for(let offscreen of this.offscreenCanvases){
+                        offscreen.drawingRatio = styleWidth*pixelDepth/this.gameSize.width;
+                        offscreen.drawingRatioInverse = 1/offscreen.drawingRatio;
+                    }
 
                     this.prevInnerWidth = innerWidth;
                 }
@@ -56,5 +69,9 @@ export default class Screen {
                 this.settingResolution = false;
             });
         }
+    }
+
+    addOffscreen(offscreen: any){
+        this.offscreenCanvases.add(offscreen);
     }
 }

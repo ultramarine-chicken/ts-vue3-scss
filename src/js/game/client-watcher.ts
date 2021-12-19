@@ -14,7 +14,7 @@ export default class ClientWatcher{
         document.addEventListener('scroll', this.getScrollingInfo.bind(this), {passive: true});
         window.addEventListener('resize', this.getResizingInfo.bind(this), {passive: true});
         window.addEventListener('orientationchange', this.getInitialInfo.bind(this), {passive: true});
-        document.onwheel = this.getScrollingInfo.bind(this);
+        //document.onwheel = this.getScrollingInfo.bind(this);
         
         this.canvas = canvas;
         this.gameHeight = size.height;
