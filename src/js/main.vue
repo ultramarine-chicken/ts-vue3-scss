@@ -34,7 +34,7 @@
             });
             
             const storageDelta = () => {
-                this.delta = game.clientWatcher;
+                this.delta = (game.ticker.delta*100 | 0) / 100 + '';
                 requestAnimationFrame(storageDelta);
             }
             requestAnimationFrame(storageDelta);

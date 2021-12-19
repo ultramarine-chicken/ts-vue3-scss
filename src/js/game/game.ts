@@ -10,7 +10,6 @@ import ClientWatcher from './client-watcher';
 //エイリアス
 
 export default class Game extends Engin.Application{
-    clientWatcher: any;
     constructor(options: {
         el: HTMLCanvasElement | undefined,
         width: number, height: number
@@ -26,6 +25,8 @@ export default class Game extends Engin.Application{
         }
         this.loadAll()
                 .then(this.setup.bind(this));
+
+        this.resolution = window.devicePixelRatio || 1;
     }
     setup(){
         console.log('setup');
@@ -53,10 +54,12 @@ export default class Game extends Engin.Application{
         this.baseContainer.add(ball);
         mainScene.add(ball);
 
-        const text = new Engin.Text('キムカル丼', {baseCanvasSize: {width: this.canvas!.width, height: this.canvas!.height}, gameWidth: this.width});
+        const text = new Engin.Text('hogehoge', {baseCanvas: this.screen.canvas, gameWidth: this.width});
         this.baseContainer.add(text);
         text.x = 0;
         text.y = 0;
+        text.text = ('barabarbarbar');
+        text.fontSize = 30;
 
         
 
