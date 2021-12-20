@@ -29,7 +29,7 @@ export default class Loader{
             }).then((data)=>{
                 return acxt.cxt.decodeAudioData(data);
             }).then((buf)=>{
-                sound.buf = buf;
+                sound.buffer = buf;
             }).then(()=>{
                 Loader.assets.set(id, sound);
                 resolve(sound);

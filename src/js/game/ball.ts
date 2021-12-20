@@ -12,7 +12,7 @@ export default class Ball extends Engin.SpriteActor{
     readonly airResistance = 0.01;
     readonly airFriction = 0.0001;
     readonly gravity = 0.1;
-    sound: any;
+    sound: Engin.Sound;
     constructor(){
         super(Engin.Loader.get('ball'));
 
@@ -87,7 +87,7 @@ export default class Ball extends Engin.SpriteActor{
             this.frictions[yx] += wall.friction;
             this.frictions[xy] += this.gravity*sign*(-1);
 
-            this.sound.play();
+            if(Math.abs(this['v' + xy]) > this.frictions[xy]) this.sound!.play();
         }
     }
     considerEdges(delta: number){

@@ -6,6 +6,7 @@ import Loader from './loader';
 import Rectangle from './rectangle';
 import Scene from './scene';
 import Text from './text';
+import Sound from './sound/sound';
 
 
-export {Application, Container, Actor, SpriteActor, Loader, Rectangle, Scene, Text};
+export {Application, Container, Actor, SpriteActor, Loader, Rectangle, Scene, Text, Sound};
