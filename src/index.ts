@@ -5,7 +5,6 @@ import App from './js/main.vue';
 
 
 
-
 function main(){
     
     const app = createApp(App);
@@ -13,4 +12,8 @@ function main(){
 }
 
 
+
+
+
 window.onload = main;
+

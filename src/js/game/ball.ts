@@ -12,7 +12,6 @@ export default class Ball extends Engin.SpriteActor{
     readonly airResistance = 0.01;
     readonly airFriction = 0.0001;
     readonly gravity = 0.1;
-    sound: any;
     constructor(){
         super(Engin.Loader.get('ball'));
 
@@ -23,7 +22,6 @@ export default class Ball extends Engin.SpriteActor{
         this.vx = Math.cos(angle)*v;
         this.vy = Math.sin(angle)*v;
 
-        this.sound = Engin.Loader.get('fish');
         
     }
     act(delta: number): void {
@@ -77,11 +75,12 @@ export default class Ball extends Engin.SpriteActor{
         const xy = option.xy;
         const yx = xy==='x' ? 'y' : 'x';
         const wallPos = wall[xy];
-        const scrollVelRectification = 1.5;
+        const scrollVelRectification = 1;
         const collisionVelRecitification = 1.2;
         const wallV = wall['v' + xy];
+
         if((thisPos + this['v' + xy]*delta) * sign < (wallPos + wallV*delta*scrollVelRectification) * sign){
-            this[xy] += wallPos + wallV*delta*scrollVelRectification - thisPos;
+            this[xy] += (wallPos + wallV*delta*scrollVelRectification) - (thisPos);
             this['v' + xy] += (collisionVelRecitification*wallV - 2*this['v' + xy])*this.elasticity;
             this.frictions[yx] += wall.friction;
             this.frictions[xy] += this.gravity*sign*(-1);

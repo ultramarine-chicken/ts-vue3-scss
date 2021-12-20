@@ -27,7 +27,7 @@ export default class Game extends Engin.Application{
         const soundPath = soundAssetData.path;
         const soundAssets = soundAssetData.assets;
         for(let i=0, len=soundAssets.length;i<len;i++){
-            Engin.Loader.addSound(soundAssets[i].id, soundPath + soundAssets[i].src);
+            Engin.Loader.addSound(soundAssets[i].id, soundPath + soundAssets[i].src, this.soundContext);
         }
         this.loadAll()
                 .then(this.setup.bind(this));
@@ -35,9 +35,7 @@ export default class Game extends Engin.Application{
         this.resolution = window.devicePixelRatio || 1;
     }
     setup(){
-        
         console.log('setup');
-
         
 
         const mainScene = new MainScene();
@@ -69,7 +67,7 @@ export default class Game extends Engin.Application{
         text.y = 0;
         mainScene.add(text);
         text.act = () => {
-            text.text = ((Math.random()*100)|0)/100 + '';
+            text.text = ((this.ticker.delta*100)|0)/100 + '';
         }
 
 
@@ -77,14 +75,14 @@ export default class Game extends Engin.Application{
         this.baseContainer.add(topaza);
         mainScene.add(topaza);
         topaza.act = () => {
-            topaza.y = browserTopEdge.y + browserTopEdge.vy*1.5;
+            topaza.y = browserTopEdge.y;// + browserTopEdge.vy*1.5;
         }
 
         const bottomaza = new Engin.SpriteActor(Engin.Loader.get('aza'));
         this.baseContainer.add(bottomaza);
         mainScene.add(bottomaza);
         bottomaza.act = () => {
-            bottomaza.y = browserBottomEdge.y - bottomaza.height + browserBottomEdge.vy*1.5;
+            bottomaza.y = browserBottomEdge.y - bottomaza.height;// + browserBottomEdge.vy*1.5;
         }
         topaza.scale.set(0.5);
         bottomaza.scale.set(0.5);

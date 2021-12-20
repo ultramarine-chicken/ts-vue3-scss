@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
-    "noImplicitAny": false,
-    "target": "ES5",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "downlevelIteration": true,
     "module": "ES2020",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
     "outDir": "./dist/",
     "rootDir": "./src/",
+    "sourceMap": true,
     "strict": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "downlevelIteration": true
+    "target": "ES5",                       
   },
   "exclude": [
     "node_modules"
