@@ -12,6 +12,7 @@ export default class Ball extends Engin.SpriteActor{
     readonly airResistance = 0.01;
     readonly airFriction = 0.0001;
     readonly gravity = 0.1;
+    sound: any;
     constructor(){
         super(Engin.Loader.get('ball'));
 
@@ -21,6 +22,9 @@ export default class Ball extends Engin.SpriteActor{
         const v = 2;
         this.vx = Math.cos(angle)*v;
         this.vy = Math.sin(angle)*v;
+
+        this.sound = Engin.Loader.get('fish');
+        
     }
     act(delta: number): void {
 
@@ -81,7 +85,6 @@ export default class Ball extends Engin.SpriteActor{
             this['v' + xy] += (collisionVelRecitification*wallV - 2*this['v' + xy])*this.elasticity;
             this.frictions[yx] += wall.friction;
             this.frictions[xy] += this.gravity*sign*(-1);
-
         }
     }
     considerEdges(delta: number){

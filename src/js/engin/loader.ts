@@ -6,7 +6,7 @@ export default class Loader{
     constructor(){
 
     }
-    static addDynamically(id: string, src: string){
+    static addImage(id: string, src: string){
         const image = new Image();
         image.src = require('~game/' + src);
 
@@ -18,17 +18,17 @@ export default class Loader{
         });
         Loader.promises.push(promise);
     }
-    static addStatically(id: string, src: string){
-        const image = new Image();
-        image.src = src;
+    static addSound(id: string, src: string){
+        const sound = new Audio();
+        sound.src = require('~game/' + src);
 
-        const promise = new Promise((resolve)=>{ 
-            image.addEventListener('load', ()=>{
-                Loader.assets.set(id, image);
-                resolve(image);
-            });
+        const promise = new Promise((resolve)=>{
+            sound.addEventListener('loadstart', ()=>{
+                Loader.assets.set(id, sound);
+                resolve(sound);
+            })
         });
-        Loader.promises.push(promise);     
+        Loader.promises.push(promise);
     }
     static loadAll(){
         return Promise.all(Loader.promises).then((p) => Loader.assets);

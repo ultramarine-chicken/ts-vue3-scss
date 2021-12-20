@@ -1,4 +1,4 @@
-import assetData from './assets.js';
+import assets from './assets.js';
 import * as Engin from '../engin/engin';
 
 import Ball from './ball';
@@ -17,11 +17,17 @@ export default class Game extends Engin.Application{
         super(options);
 
 
-        this.loadingMode = 'dynamic';
-        
-        const assets = assetData.assets;
-        for(let i=0, len=assets.length;i<len;i++){
-            this.addAsset(assets[i].id, assetData.path + assets[i].src);
+        const imageAssetData = assets.image;
+        const imagePath = imageAssetData.path;
+        const imageAssets = imageAssetData.assets;
+        for(let i=0, len=imageAssets.length;i<len;i++){
+            Engin.Loader.addImage(imageAssets[i].id, imagePath+ imageAssets[i].src);
+        }
+        const soundAssetData = assets.sound;
+        const soundPath = soundAssetData.path;
+        const soundAssets = soundAssetData.assets;
+        for(let i=0, len=soundAssets.length;i<len;i++){
+            Engin.Loader.addSound(soundAssets[i].id, soundPath + soundAssets[i].src);
         }
         this.loadAll()
                 .then(this.setup.bind(this));
@@ -29,7 +35,10 @@ export default class Game extends Engin.Application{
         this.resolution = window.devicePixelRatio || 1;
     }
     setup(){
+        
         console.log('setup');
+
+        
 
         const mainScene = new MainScene();
         this.currentScene = mainScene;

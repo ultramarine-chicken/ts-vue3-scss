@@ -16,8 +16,6 @@ export default class Application {
     scenes: Map<string, Scene> = new Map();
     currentScene: Scene | undefined = undefined;
 
-    loadingMode: string = 'dynamic';
-    loadingFunctions: {} = {dynamic: Loader.addDynamically, static: Loader.addStatically}
     
     constructor(options: { el: HTMLCanvasElement | undefined, width: number, height: number } 
                 = { el: undefined, width: 300, height: 400 }){
@@ -37,9 +35,6 @@ export default class Application {
             srcは相対パスを与える。webpackによってバンドルされる。
             engin/loaderのrequire()の中身をイイカンジのルートパスにする必要がある。
     */
-    addAsset(id: string, src: string){
-        this.loadingFunctions[this.loadingMode](id, src);
-    }
     loadAll(){
         return Loader.loadAll();
     }

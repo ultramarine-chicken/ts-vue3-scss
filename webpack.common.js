@@ -8,7 +8,6 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: 'dist/',
-        assetModuleFilename: 'images/[name][ext]'
     },
     module: {
         rules: [
@@ -49,7 +48,17 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif)$/i,
-                type: 'asset/resource'
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[name][ext]'
+                }
+            },
+            {
+                test: /\.(wav|mp3)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'sounds/[name][ext]'
+                }
             }
         ]
     },
