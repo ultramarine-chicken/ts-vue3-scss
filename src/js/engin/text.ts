@@ -51,10 +51,11 @@ export default class Text extends SpriteActor {
         offscreenCanvas.width = textWidth*drawingRatio;
         offscreenCanvas.height = textHeight*drawingRatio;
         
+        cxt.scale(drawingRatio, drawingRatio);
         cxt.font = style.fontSize + 'px sans-serif';
         cxt.textBaseline = 'top';
         cxt.fillStyle = style.fill;
-        cxt.scale(drawingRatio, drawingRatio);
+        
         
         cxt.fillText(text, 0, 0);
     }

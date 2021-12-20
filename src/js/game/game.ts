@@ -58,6 +58,10 @@ export default class Game extends Engin.Application{
         this.baseContainer.add(text);
         text.x = 0;
         text.y = 0;
+        mainScene.add(text);
+        text.act = () => {
+            text.text = ((Math.random()*100)|0)/100 + '';
+        }
 
 
         const topaza = new Engin.SpriteActor(Engin.Loader.get('aza'));

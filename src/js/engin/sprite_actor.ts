@@ -1,9 +1,6 @@
 
 import Sprite from './sprite';
-import Container from './container';
-import Scene from './scene';
 import Actor from './actor';
-import Rectangle from './rectangle';
 
 export default class SpriteActor extends Actor{
     _sprite: Sprite;

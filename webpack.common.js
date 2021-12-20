@@ -56,7 +56,10 @@ module.exports = {
     
     resolve: {
         extensions: ['.ts', '.js'],
-        roots: [__dirname]
+        roots: [__dirname],
+        alias: {
+            '~game': path.resolve(__dirname, 'src/js/game')
+        }
     },
     plugins: [
         new VueLoaderPlugin(),

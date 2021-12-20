@@ -8,7 +8,7 @@ export default class Loader{
     }
     static addDynamically(id: string, src: string){
         const image = new Image();
-        image.src = require('/src/js/game/' + src);
+        image.src = require('~game/' + src);
 
         const promise = new Promise((resolve)=>{ 
             image.addEventListener('load', ()=>{
