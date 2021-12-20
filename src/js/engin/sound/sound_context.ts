@@ -7,12 +7,14 @@ declare global {
 
 export default class  SoundContext {
     cxt: AudioContext
+    unlockEvents: string[] = ['click', 'scroll', 'touchstart'];
     constructor(){
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         this.cxt = new AudioContext();
 
-        document.addEventListener('click', this.initContext.bind(this), {once: true});
-        document.addEventListener('scroll', this.initContext.bind(this), {once: true});
+        for(let e of this.unlockEvents){
+            document.addEventListener(e, this.initContext.bind(this), {once: true});
+        }
         /*
         const AudioContext = window.AudioContext || window.webkitAudioContext;
 const ocxt = new AudioContext();
@@ -37,8 +39,9 @@ document.addEventListener('click', ()=>{
         if(this.cxt.state === 'suspended'){
             this.cxt.resume();
         }
-        document.removeEventListener('click', this.initContext.bind(this));
-        document.removeEventListener('scroll', this.initContext.bind(this));
+        for(let e of this.unlockEvents){
+            document.removeEventListener(e, this.initContext.bind(this));
+        }
     }
 }
 
