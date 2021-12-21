@@ -9,7 +9,8 @@ export default {
     sound: {
         path: 'sounds/',
         assets: [
-            {id: 'fish', src: 'fish.wav'}
+            {id: 'fish', src: 'fish.wav'},
+            {id: 'bgm', src: 'bgm.mp3', option: {loop: true, vol: 0.1}}
         ]
     }
 }; 

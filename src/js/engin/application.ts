@@ -42,6 +42,9 @@ export default class Application {
     loadAll(){
         return Loader.loadAll();
     }
+    getAsset(id: string){
+        return Loader.get(id);
+    }
 
     setCanvas(el: HTMLCanvasElement){
         this.screen.getCanvasElement(el);

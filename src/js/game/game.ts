@@ -27,7 +27,8 @@ export default class Game extends Engin.Application{
         const soundPath = soundAssetData.path;
         const soundAssets = soundAssetData.assets;
         for(let i=0, len=soundAssets.length;i<len;i++){
-            Engin.Loader.addSound(soundAssets[i].id, soundPath + soundAssets[i].src, this.soundContext);
+            const asset = soundAssets[i];
+            Engin.Loader.addSound(asset.id, soundPath + asset.src, this.soundContext, asset.option);
         }
         this.loadAll()
                 .then(this.setup.bind(this));
@@ -37,6 +38,8 @@ export default class Game extends Engin.Application{
     setup(){
         console.log('setup');
         
+        const bgm = this.getAsset('bgm');
+        bgm.play();
 
         const mainScene = new MainScene();
         this.currentScene = mainScene;

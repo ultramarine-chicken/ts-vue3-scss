@@ -1,6 +1,11 @@
 import SoundContext from './sound/sound_context';
 import Sound from './sound/sound';
 
+interface SoundOption {
+    vol: number,
+    loop: boolean
+}
+
 export default class Loader{
     static promises: Array<Promise<any>> = [];
     static assets: Map<string, any> = new Map();
@@ -18,7 +23,8 @@ export default class Loader{
         });
         Loader.promises.push(promise);
     }
-    static addSound(id: string, src: string, acxt: SoundContext){
+    static addSound(id: string, src: string, acxt: SoundContext, 
+                    {vol = 1, loop = false} : Partial<SoundOption> = {}){
         const sound = new Sound(acxt);
         
         const url = require('~game/' + src);
@@ -29,6 +35,8 @@ export default class Loader{
                 return acxt.cxt.decodeAudioData(data);
             }).then((buf)=>{
                 sound.buffer = buf;
+                sound.volume = vol;
+                sound.loop = loop;
             }).then(()=>{
                 Loader.assets.set(id, sound);
                 resolve(sound);

@@ -51,5 +51,7 @@ export default class Sound {
     set loop(bool: boolean){
         this._loop = bool;
     }
-
+    get loop(){
+        return this._loop;
+    }
 }
