@@ -9,6 +9,9 @@ export default class Sound {
     _volume: number = 1;
     _loop: boolean = false;
     _bufferSource: AudioBufferSourceNode;
+    _endTimer: any | undefined;
+    _startTime: number = 0;
+    playedTime: number = 0;
     constructor(acxt: SoundContext){
         this.acxt = acxt;
         const cxt = acxt.cxt;
@@ -25,11 +28,26 @@ export default class Sound {
         sourceBuffer.buffer = this._buffer;
         sourceBuffer.loop = this._loop;
         sourceBuffer.connect(this._gainNode);
-        sourceBuffer.start(0);
+        sourceBuffer.start(0, this.playedTime);
+        console.log(this.playedTime);
+
         this._bufferSource = sourceBuffer;
 
+        this._startTime = cxt.currentTime;
+
         this.playing = true;
-        if(!this._loop) setTimeout(this.endThen.bind(this), this._duration*1000);
+        if(!this._loop) this._endTimer = setTimeout(this.endThen.bind(this), this._duration*1000);
+    }
+    pause(){
+        if(this.playing) {
+            this.playedTime = (this.playedTime + this.acxt.cxt.currentTime - this._startTime) % this._duration;
+            this.playing = false;
+            this._bufferSource.stop(0);
+            this._clearTimer();
+        }
+    }
+    _clearTimer(){
+        clearTimeout(this._endTimer);
     }
     stop(){
         if(this.playing) this._bufferSource.stop(0);

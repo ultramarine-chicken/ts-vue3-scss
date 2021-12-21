@@ -41,6 +41,14 @@ export default class Game extends Engin.Application{
         const bgm = this.getAsset('bgm');
         bgm.play();
 
+        document.addEventListener('click', ()=>{
+            if(bgm.playing){
+                bgm.pause();
+            } else {
+                bgm.play();
+            }
+        })
+
         const mainScene = new MainScene();
         this.currentScene = mainScene;
 
