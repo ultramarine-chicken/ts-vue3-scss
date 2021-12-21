@@ -4,7 +4,7 @@ import Ticker from './ticker';
 import Container from './container';
 import Sprite from './actor';
 import Scene from './scene';
-import SoundContext from './sound/sound_context';
+import SoundMaster from './sound/sound_context';
 
 export default class Application {
     screen: Screen = new Screen();
@@ -16,7 +16,7 @@ export default class Application {
     height: number;
     scenes: Map<string, Scene> = new Map();
     currentScene: Scene | undefined = undefined;
-    soundContext: SoundContext = new SoundContext();
+    soundContext: SoundMaster = new SoundMaster();
     
     constructor(options: { el: HTMLCanvasElement | undefined, width: number, height: number } 
                 = { el: undefined, width: 300, height: 400 }){

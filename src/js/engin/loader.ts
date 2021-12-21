@@ -19,8 +19,7 @@ export default class Loader{
         Loader.promises.push(promise);
     }
     static addSound(id: string, src: string, acxt: SoundContext){
-        const sound = new Sound();
-        sound.acxt = acxt;
+        const sound = new Sound(acxt);
         
         const url = require('~game/' + src);
         const promise = new Promise((resolve)=>{
@@ -36,17 +35,6 @@ export default class Loader{
             });
         });
         Loader.promises.push(promise);
-        /*
-        const sound = new Audio();
-        sound.src = require('~game/' + src);
-
-        const promise = new Promise((resolve)=>{
-            sound.addEventListener('canplaythrough', ()=>{
-                Loader.assets.set(id, sound);
-                resolve(sound);
-            });
-        });
-        Loader.promises.push(promise);*/
     }
     static loadAll(){
         return Promise.all(Loader.promises).then((p) => Loader.assets);

@@ -23,8 +23,8 @@ export default class Ball extends Engin.SpriteActor{
         this.vx = Math.cos(angle)*v;
         this.vy = Math.sin(angle)*v;
 
-        this.sound = Engin.Loader.get('fish');
-        
+        this.sound = Engin.Loader.get('fish')!;
+        this.sound.loop = true;
     }
     act(delta: number): void {
 
@@ -87,7 +87,9 @@ export default class Ball extends Engin.SpriteActor{
             this.frictions[yx] += wall.friction;
             this.frictions[xy] += this.gravity*sign*(-1);
 
-            if(Math.abs(this['v' + xy]) > this.frictions[xy]) this.sound!.play();
+            if(Math.abs(this['v' + xy]) > this.frictions[xy]) {
+                //this.sound.play();
+            }
         }
     }
     considerEdges(delta: number){
