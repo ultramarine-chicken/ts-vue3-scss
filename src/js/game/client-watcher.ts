@@ -25,6 +25,7 @@ export default class ClientWatcher{
     }
     getInitialInfo(){
         if(!this.ticking){
+            
             this.ticking = true;
             requestAnimationFrame(()=>{
                 this.scrollY = window.scrollY;

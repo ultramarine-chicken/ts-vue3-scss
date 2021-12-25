@@ -30,16 +30,16 @@ export default class Ball extends Engin.SpriteActor{
 
         this.move(delta);
 
-        this.resetFrictions();
+        //this.resetFrictions();
 
-        this.addGravity(delta);
+        //this.addGravity(delta);
         
         this.considerEdges(delta);
 
         
 
-        this.calcAirResistance(delta);
-        this.calcFriction(delta);
+        //this.calcAirResistance(delta);
+        //this.calcFriction(delta);
         this.capVelocity();
     }
     addGravity(delta: number){
@@ -82,6 +82,7 @@ export default class Ball extends Engin.SpriteActor{
         const wallV = wall['v' + xy];
 
         if((thisPos + this['v' + xy]*delta) * sign < (wallPos + wallV*delta*scrollVelRectification) * sign){
+            /*
             this[xy] += (wallPos + wallV*delta*scrollVelRectification) - (thisPos);
             this['v' + xy] += (collisionVelRecitification*wallV - 2*this['v' + xy])*this.elasticity;
             this.frictions[yx] += wall.friction;
@@ -89,7 +90,9 @@ export default class Ball extends Engin.SpriteActor{
 
             if(Math.abs(this['v' + xy]) > this.frictions[xy]) {
                 //this.sound.play();
-            }
+            }*/
+            this['v' + xy] = -this['v' + xy];
+            this[xy] += (wallPos + wallV*delta*scrollVelRectification) - (thisPos);
         }
     }
     considerEdges(delta: number){

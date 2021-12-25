@@ -14,14 +14,15 @@ export default class BrowserEdge extends Engin.Actor{
         this.type = type;
         this.vy = 0;
         this.y = this.getEdge[this.type]();
-        
     }
     act(delta: number): void {
         this.y = this.getEdge[this.type]();
 
         if(this.prevY) this.vy = (this.y - this.prevY)/delta;
-
+        
         this.prevY = this.y;
+
+        this.y += this.vy;
         
 
     }

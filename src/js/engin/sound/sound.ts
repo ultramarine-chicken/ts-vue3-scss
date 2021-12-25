@@ -29,7 +29,6 @@ export default class Sound {
         sourceBuffer.loop = this._loop;
         sourceBuffer.connect(this._gainNode);
         sourceBuffer.start(0, this.playedTime);
-        console.log(this.playedTime);
 
         this._bufferSource = sourceBuffer;
 
