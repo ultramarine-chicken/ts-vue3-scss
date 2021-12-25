@@ -7,17 +7,3 @@ body{
     position: relative;
     overflow-x: hidden;
 }
-
-#main{
-    position: relative;
-    overflow-x: hidden;
-
-    @include mq-pc{
-        left: 100px;
-        top: 100px;
-    }
-    @include mq-not-pc{
-        margin-top: 100px;
-    }
-    padding-bottom: 100px;
-}
