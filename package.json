@@ -11,6 +11,7 @@
     "devw": "webpack --config webpack.dev.js --watch"
   },
   "dependencies": {
+    "pixi-sound": "^3.0.5",
     "pixi.js": "^5.3.11",
     "vue": "^3.2.23"
   },
